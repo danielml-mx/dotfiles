@@ -1,0 +1,74 @@
+# Preferences
+set previewer ~/.config/lf/previewer
+set cleaner ~/.config/lf/cleaner
+set incsearch true
+set smartdia true
+set icons true
+set drawbox true
+set wrapscroll true
+set relativenumber true
+set tempmarks abc
+
+# Functions
+
+## Opening files:
+## If it is an image, use the special sxiv command
+## else handle with xdg-open.
+cmd open %{{
+    test -L "$f" && f=$(readlink -f "$f")
+    case $(file --mime-type "$f" -b) in
+        image/vnd.djvu | image/x-xcf) xdg-open "$fx" ;;	# open as same process (good for term swallowing)
+        image/*) sxiv "$fx" 	;;
+        text/*) echo "To open text files with your default editor, press 'e'." ;;
+        *) xdg-open-nobg "$fx" ;;			# open as different process (no swallow)
+    esac
+}}
+
+cmd newterm &{{
+	nohup st
+}}
+
+cmd fcd ${{
+	cd "$( find -type d | fzf --reverse )"
+}}
+
+cmd fopen ${{
+	xdg-open-nobg "$( find -type f | fzf --reverse )"
+}}
+
+cmd on-cd &{{
+    printf "\033]2;$PWD - lf\a" > /dev/tty
+}}
+
+# Run once to initialize title change
+on-cd
+
+
+
+# Keybindings
+map R :source ~/.config/lf/lfrc
+map H :redraw; cd
+map <backspace> set hidden! # Control + H
+map g top
+map <a-n>tb push :newtex<space>book<space>
+map <a-n>ta push :newtex<space>article<space>
+map <a-n>tp push :newtex<space>poem<space>
+map <a-n>c push :newc<space>
+map w	# unmap from quit
+
+map t newterm
+map <c-g> fcd
+map <c-o> fopen
+map <c-c> quit
+map <c-s> quit
+
+# Clean up, fix artifacts with kitty graphics
+map j :redraw; down
+map k :redraw; up
+map h :redraw; updir
+map l :redraw; open; redraw
+
+cmd drag %dragon-drop $fx -x -A
+map D drag
+
+

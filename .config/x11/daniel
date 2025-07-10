@@ -1,0 +1,123 @@
+! BLACK & WHITE !
+! also change:
+! - dunstrc
+! - spicetify
+! -
+!#define main_font RobotoMono Nerd Font:pixelsize=24:antialias=true:autohint=true
+#define main_font JetBrainsMono Nerd Font:pixelsize=24:antialias=true:autohint=true
+
+#define color_norm_bg 	  #222222
+#define color_norm_border #333333
+#define color_norm_fg 	  #ffffff
+#define color_sel_fg      #222222
+#define color_sel_bg      #ffffff
+#define color_sel_border  #fffd00
+! https://www.schemecolor.com/taintless.php
+!
+
+! #00b8a8
+!
+
+Xcursor.theme: lighted-pixel-butter
+
+
+! dwm
+dwm.borderpx:             2
+dwm.normbgcolor:          color_norm_bg
+dwm.normbordercolor:      color_norm_border
+dwm.normfgcolor:          color_norm_fg
+dwm.selfgcolor:           color_sel_fg
+dwm.selbordercolor:       color_sel_border
+dwm.selbgcolor:           color_sel_bg
+dwm.mfact:		  0.5
+dwm.showbar:		  1
+dwm.topbar:		  1
+dwm.smartgaps:		  0
+dwm.gappih:		  10
+dwm.gappiv:		  10
+dwm.gappoh:		  10
+dwm.gappov:		  10
+
+
+! st 
+st.font:                 main_font
+st.color0:               black
+st.color1:               red3
+st.color2:               green3
+st.color3:               yellow3
+st.color4:               #008AD8
+st.color5:               magenta3
+st.color6:               cyan3
+st.color7:               gray90
+st.color8:               #0f0f0f
+st.color9:               red
+st.color10:              green
+st.color11:		 yellow
+st.color12:              #5c5cff
+st.color13:              magenta
+st.color14:              cyan
+st.color15:              white
+st.color258:             #222222
+st.alpha:		0.90
+st.alphaUnfocused:	0.80
+
+! These colors are indices thar refer to the sixteen colors mentioned above, they are not added to Resources by default.
+st.bg:			258
+st.bgUnfocused:		258
+st.defaultfg:           15
+st.defaultcs:	        14
+
+! tabbed
+tabbed.selbgcolor:	color_sel_border
+
+!sxiv
+Sxiv.background:	color_norm_bg
+Sxiv.foreground:   	color_sel_bg
+Sxiv.font:		main_font
+
+!nsxiv
+Nsxiv.window.background:color_norm_bg
+Nsxiv.window.foreground:color_sel_bg
+Nsxiv.bar.background:   color_norm_bg
+Nsxiv.bar.foreground:   color_sel_bg
+Nsxiv.bar.font:		main_font
+
+!dmenu
+dmenu.background: 	color_norm_bg
+dmenu.foreground: 	color_sel_border
+!dmenu.foreground: 	color_sel_bg
+dmenu.selbackground: 	color_sel_border
+!dmenu.selbackground: 	#ff0
+dmenu.selforeground: 	color_sel_fg
+
+! polybar
+polybar.background:	color_norm_bg
+polybar.background-alt:	color_sel_bg
+!polybar.foreground:	color_norm_fg
+polybar.foreground:	color_sel_bg
+polybar.foreground-alt:	color_sel_fg
+
+! lockscreen
+!lockscreen.foreground: color_norm_fg
+lockscreen.foreground: color_sel_bg
+lockscreen.highlight:  color_norm_fg
+lockscreen.verified:   color_norm_fg
+lockscreen.ringcolor:  color_sel_fg
+lockscreen.wrong:      #f82a11
+lockscreen.background: color_norm_bg
+lockscreen.font:       main_font
+
+! svkbd virtual keyboard
+! not quite working, changed directly
+svkbd.font: 	       main_font
+!svkbd.foreground:      color_norm_fg
+!svkbd.background:      color_norm_bg
+!svkbd.shiftforeground: color_sel_border
+!svkbd.shiftbackground: color_norm_bg
+!svkbd.abcforeground:   color_norm_fg
+!svkbd.abcbackbround:   #222222
+!svkbd.abcshiftbackground: #008ac0
+!svkbd.abcshiftforeground: #14313d
+
+! vim: set ft=xdefaults:
+

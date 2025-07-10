@@ -1,0 +1,495 @@
+">>> VIMRC <<<"
+
+"<<< XDG Compliance >>>"
+"set runtimepath+=$XDG_DATA_HOME/vim
+set runtimepath^=$XDG_CONFIG_HOME/vim
+set runtimepath+=$XDG_CONFIG_HOME/vim/after
+set runtimepath+=$XDG_DATA_HOME/vim
+set packpath^=$XDG_DATA_HOME/vim
+"set packpath+=$XDG_DATA_HOME/vim/after
+let g:netrw_home = $XDG_DATA_HOME."/vim"
+set backupdir=$XDG_CACHE_HOME/vim/backup
+set directory=$XDG_CACHE_HOME/vim/swap
+set undodir=$XDG_CACHE_HOME/vim/undo
+set viewdir=$XDG_CACHE_HOME/vim/view
+
+if !has('nvim') " Neovim has its own location which already complies with XDG specification
+		" and because it uses a different file format, it is
+		" incompatible with regular vim.
+  set viminfofile=$XDG_CACHE_HOME/vim/viminfo
+endif
+
+"if has('nvim')
+  let g:neoterm_default_mod='belowright' " open terminal in bottom split
+  let g:neoterm_size=16 " terminal split size
+"endif
+
+
+"<<< FireNvim >>>"
+" Default shortcut to trigger in browser is <C-e>
+" Change 'takeover' to 'never' to always have to trigger it
+" manually.
+let g:firenvim_config = { 
+    \ 'globalSettings': {
+        \ 'alt': 'all',
+        \ 'ignoreKeys': {
+            \ 'all': [ '<C-l>', '<C-1>', '<C-2>', '<C-3>', '<C-4>', '<C-5>', '<C-6>', '<C-7>', '<C-8>', '<C-9>' ],
+            \ 'normal': []
+	\ }
+    \  },
+    \ 'localSettings': {
+        \ '.*': {
+            \ 'cmdline': 'neovim',
+            \ 'content': 'text',
+            \ 'priority': 0,
+            \ 'selector': 'textarea',
+            \ 'takeover': 'always',
+        \ },
+    \ }
+\ }
+
+let fc = g:firenvim_config['localSettings']
+let fc['https://docs\.google\.com.*'] = { 'takeover': 'never', 'priority': 1 } " priority 1 vs priority 0
+
+" Specific vrc for firenvim:
+if exists('g:started_by_firenvim')
+  set laststatus=0
+endif
+
+" Per-domain syntax
+" ( domainname_page_selector.txt )
+au BufEnter github.com_*.txt set filetype=markdown
+
+"<<< Colors >>>"
+
+" Being *very* explicit with the color scheme.
+" Vim and Neovim interpret the 'default' color scheme differently, for some
+" reason.
+
+" Filetype-specific syntax highlighting (basically turn on colors)
+filetype plugin on
+
+" Detect filetype syntax
+filetype detect
+
+" Smart indentation
+filetype indent on
+
+" General
+
+" Fix colorscheme change after Neovim 0.10
+" https://www.reddit.com/r/neovim/comments/189nw6r/comment/kbvd65x/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+set notermguicolors
+if has('nvim')
+	colorscheme vim
+endif
+
+function! s:tweak_colors()
+  hi SpecialKey 			term=bold ctermfg=4 guifg=Blue
+  hi NonText 			term=bold cterm=NONE ctermfg=4 gui=bold guifg=Blue
+  hi Directory 			term=bold ctermfg=4 guifg=Blue
+  hi ErrorMsg 			term=standout cterm=NONE ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red
+  hi IncSearch 			term=reverse cterm=reverse gui=reverse
+  "hi Search 			term=reverse ctermbg=3 guibg=Gold2
+  hi Search 			term=reverse ctermbg=white guibg=Gold2
+  hi MoreMsg 			term=bold ctermfg=2 gui=bold guifg=SeaGreen
+  hi ModeMsg 			term=bold cterm=bold gui=bold
+  hi LineNr 			term=underline ctermfg=3 guifg=Red3
+  hi Question 			term=standout ctermfg=2 gui=bold guifg=SeaGreen
+  hi StatusLine 			term=bold,reverse cterm=bold,reverse gui=bold guifg=White guibg=Black
+  hi StatusLineNC 		term=reverse cterm=reverse gui=bold guifg=PeachPuff guibg=Gray45
+  "hi VertSplit 			term=reverse cterm=reverse gui=bold guifg=White guibg=Gray45
+  hi VertSplit 			term=reverse cterm=reverse ctermfg=Black ctermfg=Black gui=bold guifg=Black guibg=Black
+  "hi Title 			term=bold ctermfg=5 gui=bold guifg=DeepPink3
+  hi Title 			term=bold ctermfg=13 gui=bold guifg=DeepPink3
+  hi Visual 			term=reverse cterm=reverse gui=reverse guifg=Grey80 guibg=fg
+  hi VisualNOS 			term=bold,underline cterm=bold,underline gui=bold,underline
+  hi WarningMsg 			term=standout ctermfg=1 gui=bold guifg=Red
+  hi WildMenu 			term=standout ctermfg=0 ctermbg=3 guifg=Black guibg=Yellow
+  hi Folded 			term=standout ctermfg=4 ctermbg=7 guifg=Black guibg=#e3c1a5
+  hi FoldColumn 			term=standout ctermfg=4 ctermbg=7 guifg=DarkBlue guibg=Gray80
+  hi DiffAdd 			term=bold ctermbg=4 guibg=White
+  hi DiffChange 			term=bold ctermbg=5 guibg=#edb5cd
+  hi DiffDelete 			term=bold cterm=bold ctermfg=4 ctermbg=6 gui=bold guifg=LightBlue guibg=#f6e8d0
+  hi DiffText 			term=reverse cterm=bold ctermbg=1 gui=bold guibg=#ff8060
+  hi Cursor 			guifg=bg guibg=fg
+  hi lCursor 			guifg=bg guibg=fg
+  
+  " Syntax highlighting
+  hi Comment 			term=bold ctermfg=4 guifg=#406090
+  hi Constant 			term=underline ctermfg=1 guifg=#c00058
+  "hi String 			term=underline ctermfg=1 guifg=#c00058
+  hi String 			term=underline ctermfg=9 guifg=#c00058
+  "hi Special 			term=bold ctermfg=5 guifg=SlateBlue
+  hi Special 			term=bold ctermfg=13 guifg=SlateBlue
+  hi Identifier 			term=underline ctermfg=6 guifg=DarkCyan
+  "hi Statement 			term=bold ctermfg=130 gui=bold guifg=Brown
+  hi Statement 			term=bold ctermfg=130 gui=bold guifg=Brown
+  "hi PreProc 			term=underline ctermfg=5 guifg=Magenta3
+  hi PreProc 			term=underline ctermfg=13 guifg=Magenta3
+  "hi Type 			term=underline ctermfg=2 gui=bold guifg=SeaGreen
+  hi Type 			term=underline ctermfg=2 gui=bold guifg=SeaGreen
+  hi Ignore 			cterm=bold ctermfg=7 guifg=bg
+  hi Error 			term=reverse cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red
+  hi Todo 		      	term=standout ctermfg=0 ctermbg=3 guifg=Blue guibg=Yellow
+  hi Function 			cterm=bold ctermfg=6 gui=bold guifg=SlateBlue
+  
+  " Personal changes
+  highlight Comment 	      ctermbg=DarkGrey
+  highlight Comment 	      ctermfg=Black
+  
+  " Word count, line count and status bar
+  "highlight LineNr 	term=NONE cterm=NONE ctermfg=white  ctermbg=NONE gui=NONE guifg=NONE guibg=NONE
+  highlight LineNr 	term=NONE cterm=bold ctermfg=white  ctermbg=NONE gui=NONE guifg=NONE guibg=NONE
+  "highlight statusline 	term=bold cterm=NONE ctermfg=white ctermbg=black gui=NONE guifg=NONE guibg=NONE
+  highlight statusline 	term=bold cterm=NONE ctermfg=black ctermbg=white gui=NONE guifg=NONE guibg=NONE
+  highlight CursorLineNr  term=bold cterm=NONE ctermfg=white ctermbg=black gui=NONE guifg=NONE guibg=NONE
+  
+  " Spell checking
+  hi SpellBad cterm=underline ctermfg=cyan ctermbg=black guifg=NONE
+endfunction
+
+autocmd! ColorScheme vim call s:tweak_colors()
+
+colorscheme vim
+autocmd colorscheme * syntax on
+
+"https://alvinalexander.com/linux/vi-vim-editor-color-scheme-syntax/
+"syntax enable
+
+"<<< General >>>"
+
+" Re-opening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+      \| exe "normal! g'\"" | endif
+      endif
+
+" Disable mouse
+"set mouse=
+
+" Show title
+set title
+
+" Show commands (bottom-right corner)
+set showcmd
+
+" Linebreak (wrap lines around spaces, not the middle of words)
+set linebreak
+
+" Real-time searching/matching && highlight all matches
+set incsearch
+set hlsearch
+
+" Case-insensitive matching && partial matching
+set ic
+set smartcase
+" set is
+
+" Disable live substitution
+"set inccommand=split
+
+" When part of a line is off-screen, truncate that part instead of the whole line
+set display=truncate
+
+" Line-counter and relative line-counter
+" https://vim.fandom.com/wiki/Display_line_numbers
+" https://stackoverflow.com/questions/313463/storing-vim-settings-with-a-document#313466 (last solution)
+set number relativenumber
+
+" Remove redundant status bar
+"set laststatus=1
+
+" If file is in Documents directory, add word count
+"autocmd BufRead,BufNewFile ~/docs/* set statusline=%{wordcount().words}\ words\  laststatus=2 "| call WriteRoomToggle()
+
+" Clipboard
+set clipboard=unnamedplus
+
+" Specific tab sizes depending on the file's type
+" https://stackoverflow.com/questions/1562633/setting-vim-whitespace-preferences-by-filetype
+"set expandtab
+autocmd FileType css  setlocal ts=2 sw=2 expandtab
+
+" Compiling document depending on filetype
+" Python: https://stackoverflow.com/questions/18948491/running-python-code-in-vim
+"autocmd FileType python map  <buffer> <F5> :w<Enter>:exec '!python' shellescape(@%, 1)<Enter>
+autocmd FileType python map  <buffer> <F5> :w<Enter>:exec '!st python -i' shellescape(@%, 1)<Enter>
+"autocmd FileType python imap <buffer> <F5> <Esc>:w<Enter>:exec '!python' shellescape(@%, 1)<Enter>
+autocmd FileType python imap <buffer> <F5> <Esc>:w<Enter>:exec '!st python -i' shellescape(@%, 1)<Enter>
+
+" JavaScript:
+autocmd FileType javascript map  <buffer> <F5> :w<Enter>:exec '!node' shellescape(@%, 1)<Enter>
+autocmd FileType javascript imap <buffer> <F5> <Esc>:w<Enter>:exec '!node' shellescape(@%, 1)<Enter>
+
+" LaTeX/pdflatex:
+autocmd FileType tex setlocal ts=4 sw=4 expandtab
+autocmd FileType tex map  <buffer> <F5> :w<Enter>:exec '!pdflatex' shellescape(@%, 1)<Enter>
+autocmd FileType tex imap <buffer> <F5> <Esc>:w<Enter>:exec '!pdflatex' shellescape(@%, 1)<Enter>
+
+"autocmd FileType tex imap <C-i> \textit{}<Esc>i
+"autocmd FileType tex imap <C-i> \textit{
+" <C-i> is the same code use for tabbing.
+" See https://superuser.com/questions/770068/in-vim-how-can-i-remap-tab-without-also-remapping-ctrli
+autocmd FileType tex inoremap <C-o> \textit{
+autocmd FileType tex inoremap ;it \textit{
+autocmd FileType tex inoremap ;bf \textbf{
+
+" C
+autocmd FileType c map  <buffer> <F5> :w<Enter>:exec '!gcc' shellescape(@%, 1)<Enter>
+autocmd FileType c imap <buffer> <F5> <Esc>:w<Enter>:exec '!gcc' shellescape(@%, 1)<Enter>
+"autocmd FileType c map  <buffer> <F17> :w<Enter>:exec '!gcc' shellescape(@%, 1)<Enter>
+"autocmd FileType c imap <buffer> <F17> <Esc>:w<Enter>:exec '!gcc' shellescape(@%, 1)<Enter>
+
+" C++
+autocmd FileType cpp map  <buffer> <F5> :w<Enter>:exec '!g++' shellescape(@%, 1)<Enter>
+autocmd FileType cpp imap <buffer> <F5> <Esc>:w<Enter>:exec '!g++' shellescape(@%, 1)<Enter>
+
+
+" R Markdown
+" broken
+autocmd FileType rmarkdown map  <buffer> <F5> :w<Enter>:Rscript -e "rmarkdown::render('%:p', output_format = 'pdf_document')"<Enter>
+autocmd FileType rmarkdown imap <buffer> <F5> :w<Enter>:Rscript -e "rmarkdown::render('%:p', output_format = 'pdf_document')"<Enter>
+
+autocmd BufRead,BufNewFile *.Rmd imap <C-r> ```{r}<Enter>```<Esc>O
+
+autocmd BufRead,BufNewFile *.Rmd map  <buffer> <F5> :w<Enter>:!Rscript -e "rmarkdown::render('%:p', output_format = 'pdf_document')"<CR>
+autocmd BufRead,BufNewFile *.Rmd imap <buffer> <F5> <Esc>:w<Enter>:!Rscript -e "rmarkdown::render('%:p', output_format = 'pdf_document')"<CR>
+" Rscript -e "rmarkdown::render('name.Rmd', output_format = 'pdf_document')"
+
+" sh
+
+" Spell-checking
+"nnoremap <C-a> :setlocal spell! spelllang=en_us<Enter>
+"inoremap <C-a> <Esc>:set spell! spelllang=en_us<Enter>a
+"
+"nnoremap <C-s> :setlocal spell! spelllang=es<Enter>
+"inoremap <C-s> <Esc>:set spell! spelllang=es<Enter>a
+"setlocal spell! spelllang=es,en_us,de
+nnoremap <C-s> :setlocal spell! spelllang=es,en_us,de<Enter>
+inoremap <C-s> <Esc>:set spell! spelllang=es,en_us,de<Enter>a
+
+
+"<<< Shortcuts >>>"
+"
+"copy
+"vnoremap <C-c> :w !xclip -selection clipboard <Enter> <Enter>
+
+" make mark navigation easier in LATAM keyboard
+nnoremap ' `
+nnoremap , '
+
+" Moving through the same line with gj gk as if they were different lines, bound
+" to <C-j> <c-k>
+nnoremap <C-j> gj
+nnoremap <C-k> gk
+vnoremap <C-j> gj
+vnoremap <C-k> gk
+
+"nnoremap <C-j> j
+"nnoremap <C-k> k
+"vnoremap <C-j> j
+"vnoremap <C-k> k
+"
+"nnoremap j gj
+"nnoremap k gk
+"vnoremap j gj
+"vnoremap k gk
+
+" Config reload
+nnoremap <A-r> :source $MYVIMRC<Enter>
+inoremap <A-r> <Esc>:source $MYVIMRC<Enter>a
+
+
+"terminal : http://media.vimcasts.org/videos/75/neovim-terminal-mappings.mp4
+"open up cmd
+"nnoremap <C-x> :vs<bar>term<cr>a
+tnoremap <A-x> <C-\><C-n>
+tnoremap <A-X> <C-\><C-n>:q<cr>
+
+"move without needing to exit insert mode
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+
+tnoremap <A-H> <C-\><C-n><C-w>hi
+tnoremap <A-J> <C-\><C-n><C-w>ji
+tnoremap <A-K> <C-\><C-n><C-w>ki
+tnoremap <A-L> <C-\><C-n><C-w>li
+
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+
+nnoremap <A-H> <C-\><C-n><C-w>hi
+nnoremap <A-J> <C-\><C-n><C-w>ji
+nnoremap <A-K> <C-\><C-n><C-w>ki
+nnoremap <A-L> <C-\><C-n><C-w>li
+
+inoremap <A-h> <C-w>h
+inoremap <A-j> <C-w>j
+inoremap <A-k> <C-w>k
+inoremap <A-l> <C-w>l
+
+inoremap <A-H> <C-\><C-n><C-w>hi
+inoremap <A-J> <C-\><C-n><C-w>ji
+inoremap <A-K> <C-\><C-n><C-w>ki
+inoremap <A-L> <C-\><C-n><C-w>li
+
+"<<< Guide >>>"
+noremap <Space><Space> <Esc>/<++><Enter>"_c4l
+"inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
+noremap <C-n> <Esc>/<++><Enter>"_c4l
+inoremap <C-n> <Esc>/<++><Enter>"_c4l
+
+"<<<Filetype-specific settings>>>"
+
+" Md
+autocmd FileType markdown imap  <C-b> ****<Esc>hi
+"autocmd FileType markdown imap  <C-i> **<Esc>i
+
+" HTML
+autocmd FileType html setlocal ts=4 sw=4 expandtab
+autocmd FileType html map  <buffer> <F5> :w<Enter>:exec '!librewolf' shellescape(@%, 1)<Enter>
+autocmd FileType html imap  <buffer> <F5> :w<Enter>:exec '!librewolf' shellescape(@%, 1)<Enter>
+
+autocmd FileType html inoremap ;it <i></i><Esc>hhhi
+autocmd FileType html inoremap ;bf <b></b><Esc>hhhi
+autocmd FileType html inoremap ;em <em></em><Esc>hhhhi
+autocmd FileType html inoremap ;url <a href=''></a><Esc>hhhi
+autocmd FileType html inoremap ;h1 <h1></h1><Esc>hhhhi
+autocmd FileType html inoremap ;h2 <h2></h2><Esc>hhhhi
+autocmd FileType html inoremap ;h3 <h3></h3><Esc>hhhhi
+autocmd FileType html inoremap ;p <p></p><Esc>hhhi
+autocmd FileType html inoremap ;jp <p class="j"></p><Esc>hhhi
+autocmd FileType html inoremap ;cimg <em></em><Esc>hhhhi
+
+" TEX
+"autocmd FileType tex map  <buffer> <F5> :w<Enter>:exec '!xelatex' shellescape(@%, 1)<Enter>
+"autocmd FileType tex imap <buffer> <F5> <Esc>:w<Enter>:exec '!xelatex' shellescape(@%, 1)<Enter>
+autocmd FileType tex map  <buffer> <F5> :w<Enter>:exec '!pdflatex' shellescape(@%, 1)<Enter>
+autocmd FileType tex imap <buffer> <F5> <Esc>:w<Enter>:exec '!pdflatex' shellescape(@%, 1)<Enter>
+autocmd FileType tex map  <buffer> <F4> :w<Enter>:exec '!lualatex' shellescape(@%, 1)<Enter>
+autocmd FileType tex imap <buffer> <F4> <Esc>:w<Enter>:exec '!lualatex' shellescape(@%, 1)<Enter>
+
+autocmd FileType tex inoremap ;it \textit{
+autocmd FileType tex inoremap ;bf \textbf{
+autocmd FileType tex inoremap ;tt \texttt{
+
+autocmd FileType tex inoremap ;sec \section{<Esc>o<Esc>kA
+autocmd FileType tex inoremap ;*sec \section*{
+autocmd FileType tex inoremap ;sub \subsection{
+autocmd FileType tex inoremap ;*sub \subsection*{
+autocmd FileType tex inoremap ;mize \begin{itemize}<Enter><Enter>\end{itemize}<Esc>kI
+autocmd FileType tex inoremap ;num \begin{enumerate}<Enter><Enter>\end{enumerate}<Esc>kI
+autocmd FileType tex inoremap ;tab \begin{tabular}{<++>}<Enter><++><Enter>\end{itemize}<Esc>kk$ci{
+
+" R
+autocmd Filetype r map  <buffer> <F5> :w<Enter>:exec '!Rscript' shellescape(@%, 1)<Enter>
+autocmd FileType r imap <buffer> <F5> <Esc>:w<Enter>:exec '!Rscript' shellescape(@%, 1)<Enter>
+
+" Special function which enables padding for prose (similar to Goyo)
+"function! WriteRoomToggle()
+"  let l:name = '_writeroom_'
+"  if bufwinnr(l:name) > 0
+"    wincmd o
+"  else
+"    let l:width = (&columns - &textwidth) / 5
+"    execute 'topleft' l:width . 'vsplit +setlocal\ nobuflisted' l:name | wincmd p
+"    execute 'botright' l:width . 'vsplit +setlocal\ nobuflisted' l:name | wincmd p
+"    endif
+"endfunction
+
+let g:goyo_width = 60
+nnoremap <A-b> :Goyo<Enter>
+inoremap <A-b> <Esc>:Goyo<Enter>a
+
+
+" 
+
+inoremap <C-h> <C-\><C-o>dB
+
+
+" Plug-in support
+call plug#begin('~/.config/vim/plugins')
+    "Plug 'skammer/vim-css-color'
+    "Plug 'jiangmiao/auto-pairs'
+    Plug 'ap/vim-css-color'
+    Plug 'chikamichi/mediawiki.vim'
+    Plug 'itchyny/calendar.vim'
+    "Plug 'mattn/calendar-vim'
+    "Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'junegunn/goyo.vim'
+    Plug 'elkowar/yuck.vim'
+    Plug 'guanghwang/vim-stata-linux', { 'branch': 'main', 'for': 'stata'}  "stata exec
+    if has('nvim')
+    	Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " or manually 'call firenvim#install(0)'
+    endif
+call plug#end()
+
+" Calendar plug-in settings
+let g:calendar_first_day = 'monday'
+let g:calendar_view = 'week'
+nnoremap <C-h> <Plug>(calendar_exit)
+nnoremap cr <Plug>(calendar_exit)
+
+" https://github.com/HCY-ASLEEP/NVIM-Config/blob/main/vim/autocomplete.vim
+
+set completeopt=menuone,noselect
+" hide commplete info under the statusline
+set shortmess+=c
+
+" match gqq char size w/ font I use
+set tw=60
+
+"function! OpenLSPCompletion()
+"    if v:char =~ '[A-Za-z_.]' && !pumvisible() 
+"        call feedkeys("\<C-x>\<C-o>", "n")
+"    endif
+"endfunction
+"
+"function! OpenNoLSPCompletion()
+"    if v:char =~ '[A-Za-z_]' && !pumvisible() 
+"        call feedkeys("\<C-n>", "n")
+"    endif
+"endfunction
+"
+"function! OpenFilePathCompletion()
+"    if v:char =~ '[/]' && !pumvisible()
+"        call feedkeys("\<C-x>\<C-f>", "n")
+"    endif
+"endfunction
+"
+"function! AutoComplete()
+"    if luaeval('#vim.lsp.buf_get_clients()') != 0
+"        augroup openCompletion
+"            autocmd! * <buffer>
+"            autocmd InsertCharPre <buffer> silent! call OpenLSPCompletion()
+"        augroup END
+"    else
+"        augroup openCompletion
+"            autocmd! * <buffer>
+"            autocmd InsertCharPre <buffer> silent! call OpenNoLSPCompletion()
+"        augroup END
+"    endif
+"endfunction
+"
+"augroup initAutoComplete
+"    autocmd!
+"    autocmd BufEnter,LspAttach * call AutoComplete()
+"augroup END
+"
+"augroup openFilePathCompletion
+"    autocmd!
+"    autocmd InsertCharPre * silent! call OpenFilePathCompletion()
+"augroup END
+"
+"" use tab for navigating the autocomplete menu
+"inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+"
+"" use up and down keys for navigating the autocomplete menu
+"inoremap <expr> <down> pumvisible() ? "\<C-n>" : "\<down>"
+"inoremap <expr> <up> pumvisible() ? "\<C-p>" : "\<up>"

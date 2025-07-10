@@ -1,0 +1,75 @@
+#!/bin/sh
+# Based heavily on https://github.com/cirala/lfimg and https://github.com/cirala/lfimg/blob/master/preview
+case "$1" in 
+	*rsa*|*ssh*|*gpg*) exit;;
+esac
+
+ft=$( file --mime-type "$1" -b )
+
+ubpreview()
+{
+	# https://github.com/jstkdng/ueberzugpp/issues/171
+	#if [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
+	if [ -n "$DISPLAY" ] ; then
+		printf '{"action": "add", "identifier": "PREVIEW", "x": "%s", "y": "%s", "width": "%s", "height": "%s", "scaler": "contain", "path": "%s"}\n' "$4" "$5" "$(($2-1))" "$(($3-1))" "$1" > "$FIFO_UEBERZUG"
+		exit 1
+	else
+		exiftool "$1"
+	fi
+}
+
+kittypreview()
+{
+		file=$1
+		w=$2
+		h=$3
+		x=$4
+		y=$5
+		kitten icat --silent --stdin no --transfer-mode file --place "${w}x${h}@${x}x${y}" "$file" < /dev/null > /dev/tty
+			exit 1
+}
+
+CACHE="$HOME/.cache/lf/thumbnail.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}'))"
+
+case "$ft" in
+	image/heic)
+		[ ! -f "${CACHE}.jpg" ] && \
+			convert "$1" "${CACHE}.jpg"
+		ubpreview "${CACHE}.jpg" "$2" "$3" "$4" "$5"
+		;;
+	image/*) ubpreview "$1" "$2" "$3" "$4" "$5" ;;
+	application/pdf)
+		[ ! -f "${CACHE}.jpg" ] && \
+			pdftoppm -jpeg -f 1 -singlefile "$1" "$CACHE"
+		ubpreview "${CACHE}.jpg" "$2" "$3" "$4" "$5"
+		;;
+
+	application/epub*)
+		[ ! -f "$CACHE" ] && \
+			epub-thumbnailer "$1" "$CACHE" 1024
+		ubpreview "$CACHE" "$2" "$3" "$4" "$5"
+		;;
+	video/* | audio/*) 
+		[ ! -f "${CACHE}.jpg" ] && \
+			ffmpegthumbnailer -i "$1" -o "${CACHE}.jpg" -s 0 -q 5
+		ubpreview "${CACHE}.jpg" "$2" "$3" "$4" "$5"
+		;;
+	application/x-rar) unrar-free l "$1";;
+	text/* | application/mbox | application/javascript ) bat --wrap auto --terminal-width "$(($4 - 4))" -f "$1" ;;
+	application/gzip)  
+		[ ! -f "${CACHE}.png" ] && \
+			xournalpp -n 1 -i "${CACHE}.png" "$1" --export-range=1
+		ubpreview "${CACHE}.png" "$2" "$3" "$4" "$5"
+		;;
+	*/zstd | */gzip) tar tf "$1";;
+    	application/zip) unzip -l "$1";;
+	application/vnd.oasis.opendocument.text | application/vnd.openxmlformats-officedocument* | application/vnd.ms-excel)
+		[ ! -f "${CACHE}.png" ] && \
+			f_cache="$(basename ${CACHE})" && \
+			f_base="$(basename "$1" | sed 's/\.[^.]*$//')" && \
+			libreoffice --convert-to png "$1" --outdir "$(dirname ${CACHE})" > /dev/null && \
+			mv "$(dirname ${CACHE})/${f_base}.png" "$(dirname ${CACHE})/${f_cache}.png"
+		ubpreview "${CACHE}.png" "$2" "$3" "$4" "$5"
+		;;
+esac
+

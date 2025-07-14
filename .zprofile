@@ -3,11 +3,8 @@
 # ~/.zprofile
 #
 
-#[[ -f ~/.bashrc ]] && . ~/.bashrc
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.local/bin
 
-# Temporary sioyek fix
-export QT_QPA_PLATFORM=xcb
 
 #export PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.local/bin:$HOME/.local/share/python/bin
 
@@ -67,11 +64,5 @@ export VISUAL=nvim
 export WALLS_DIR=$HOME/downs/wallpapers/my_lion.png
 export LOCK_WALLPAPER=/tmp/lockwall.png
 
-#
-#*vimrc=:\
-#rss*.xml=:\
-
-# Auto-login
-#if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-#  exec startx
-#fi
+# Temporary sioyek fix
+export QT_QPA_PLATFORM=xcb

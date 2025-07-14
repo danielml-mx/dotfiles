@@ -1,0 +1,31 @@
+#!/bin/sh
+#killall statusbar
+
+	#xsetroot -name " BAT1: $(cat /sys/class/power_supply/BAT0/capacity)% | BRIGHT: $(printf %.0f $(light -G))% | VOL: $(pamixer --get-volume-human) | $(date +'%a %h %d %r %Z %Y') | 🄯 "
+	#xsetroot -name " BAT1: $(cat /sys/class/power_supply/BAT0/capacity)% | BRIGHT: $(printf %.0f $(light -G))% | VOL: $(pamixer --get-volume-human) | $(date +'%a %h %d %r %Z %Y') |  "
+
+
+# Basic status bar
+get_wifi ()
+{
+	#sudo wpa_cli status | grep bssid > /dev/null && WIFI= || WIFI="! "
+
+	WIFI="X"
+	case "$( sudo wpa_cli status | sed -n '2p' )" in
+		bssid*) WIFI=󰖩  ;;
+		wpa_state=INTERFACE_DISABLED) WIFI="󱚵" ;;
+		*SCANNING*) WIFI="󱚾" ;;
+	esac
+}
+
+while true; do
+	[ $( cat /sys/class/power_supply/BAT0/status ) = "Charging" ] && BAT_STATUS="" || BAT_STATUS=""
+	VOL="$( pamixer --get-volume-human )" ; [ $VOL = "muted" ] && VOL=""
+	#[ $(pamixer --get-volume-human) = "muted" ] && VOL="🔇" || VOL=$(pamixer --get-volume-human)
+	get_wifi
+
+	#xsetroot -name " 󰂄: $(cat /sys/class/power_supply/BAT0/capacity)% $BAT_STATUS | $WIFI |  $(printf %.0f $(light -G))% | 󰕾 $VOL | $(date +'%a %h %d %r %Z %Y') | 󰳶 "
+	xsetroot -name " 󰂄: $(cat /sys/class/power_supply/BAT0/capacity)% $BAT_STATUS | $WIFI |  $(printf %.0f $(light -G))% | 󰕾 $VOL | $(date +'%a %h %d %r') | 󰳶 "
+	[ "$(cat /sys/class/power_supply/BAT0/capacity)" = 20 ] && [ "$(cat /sys/class/power_supply/BAT0/status)" != "Charging" ] && notify-send -a dwm -u critical -r 999 -i ~/.local/share/icons/Flat-Yellow/devices/scalable/battery-empty.svg Battery "Battery is critically low, please charge immediately."
+        sleep 1
+done 

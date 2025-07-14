@@ -1,0 +1,4 @@
+#!/bin/sh
+
+TEXT=$(calcurse -d 1 | grep -A 1 $(date -d "+5 mins" +"%H:%M"))
+notify-send -a "calcurse" "Appointment" "$TEXT"

@@ -1,0 +1,23 @@
+#!/bin/sh
+
+#source ~/.zprofile
+
+notify-send "Suppressing all notifications."
+sleep 5 && dunstctl set-paused toggle
+
+#types="\
+#tec
+#mdj
+#a mimir"
+#
+#echo -e "$types"
+#
+#echo "$types" | dmenu
+
+#WALL=$( find $WALLS_DIR -type f | shuf -n 1 - )
+#
+#hsetroot -cover $WALL -blur 3 -write $LOCK_WALLPAPER
+#hsetroot -cover $WALL
+
+
+

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+source ~/.zprofile
+WALL=$( find $WALLS_DIR -type f | shuf -n 1 - )
+
+hsetroot -cover $WALL -blur 3 -write $LOCK_WALLPAPER
+hsetroot -cover $WALL

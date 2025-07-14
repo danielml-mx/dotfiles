@@ -1,0 +1,65 @@
+#!/bin/sh
+
+source ~/.zprofile		# uncomment if you're going to be changing the lockscreen from profile
+
+# rrggbbaa
+# https://hashnode.com/-post/understanding-rrggbbaa-color-notation-cisvdr52x088fwt53h1drf6m2
+IMG=${LOCK_WALLPAPER}
+#FOREGROUND=$( xrdb -get dwm.normfgcolor )ff
+#HIGHLIGHT=$( xrdb -get dwm.normfgcolor )bf
+#VERIFIED=$( xrdb -get dwm.normfgcolor )ff
+#RINGCOLOR=$( xrdb -get dwm.selbgcolor )bf
+#WRONG=f82a11aa
+##BACKGROUND=222222bf
+#BACKGROUND=$( xrdb -get dwm.normbgcolor )bf
+
+FOREGROUND=$( xrdb -get lockscreen.foreground )ff
+HIGHLIGHT=$( xrdb -get lockscreen.highlight )bf
+VERIFIED=$( xrdb -get lockscreen.verified )ff
+RINGCOLOR=$( xrdb -get lockscreen.ringcolor )bf
+WRONG=$( xrdb -get lockscreen.wrong )aa
+BACKGROUND=$( xrdb -get lockscreen.background )bf
+FONT=$( xrdb -get lockscreen.font | cut -d: -f1 )
+
+i3lock -t -n -e --force-clock \
+-i $IMG \
+--ind-pos="w/2:h/2" \
+--time-pos="w/2:h/2-5" \
+--date-pos="w/2:h/2+35" \
+--greeter-pos="w/2:h/2" \
+--insidever-color=$BACKGROUND \
+--insidewrong-color=$WRONG \
+--inside-color=$BACKGROUND \
+--ringver-color=$VERIFIED \
+--ringwrong-color=$WRONG \
+--ring-color=$RINGCOLOR \
+--keyhl-color=$HIGHLIGHT \
+--bshl-color=$HIGHLIGHT \
+--separator-color=00000000 \
+--date-color=$FOREGROUND \
+--time-color=$FOREGROUND \
+--greeter-color=$FOREGROUND \
+--time-str="%H | %M" \
+--time-size=27 \
+--date-str="%a, %d %b" \
+--date-size=15 \
+--greeter-text="" \
+--greeter-size=25 \
+--line-uses-inside \
+--radius 75 \
+--ring-width 4 \
+--indicator \
+--verif-text="" \
+--wrong-text="" \
+--noinput-text="" \
+--lock-text="" \
+--lockfailed-text="" \
+--clock \
+--date-font="$FONT" \
+--time-font="$FONT" \
+--color=000000ff \
+--pass-media-keys --pass-screen-keys --pass-volume-keys \
+$@
+
+#light -I
+#light -S 50

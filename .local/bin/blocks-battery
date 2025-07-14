@@ -1,0 +1,7 @@
+#!/bin/sh
+[ "$(cat /sys/class/power_supply/BAT0/capacity)" = 20 ] && [ "$(cat /sys/class/power_supply/BAT0/status)" != "Charging" ] && notify-send -a dwm -u critical -r 999 -i ~/.local/share/icons/Flat-Yellow/devices/scalable/battery-empty.svg Battery "Battery is critically low, please charge immediately." &
+[ "$( cat /sys/class/power_supply/BAT0/status )" = "Charging" ] && BAT_STATUS="󱟠" || BAT_STATUS="󱟞"
+echo " $BAT_STATUS $(cat /sys/class/power_supply/BAT0/capacity)%"
+
+
+

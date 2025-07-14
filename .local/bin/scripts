@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec=$( ls ~/.local/bin -p | grep -v "blocks-" | dmenu -l 15 -c -p "Run: ")
+~/.local/bin/$exec

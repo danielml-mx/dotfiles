@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# If image name is not passed (as arg #1), then assign /tmp/date as name
+#[[ -z "$1" ]] && name="/tmp/$(date +'screenshot-%m-%d-%y--%k-%M.png')" || name=$1
+[ -z "$1" ] && name="/tmp/$(date +'screenshot-%m%d%y-%H%M%S.png')" || name=$1
+#[[ -z "$1" ]] && name="/tmp/$(date +'screenshot-%Y%m%d-%k%M.png')" || name=$1
+
+if [[ -n $WAYLAND_DISPLAY ]]; then
+	grim -g "$(slurp -d)" "$name"
+	wl-copy --type image/png < "$name"
+elif [[ -n $DISPLAY ]]; then
+	import -silent "$name" || exit
+	xclip -selection clipboard -target image/png "$name"
+else
+	echo "Error: No Wayland or X11 display detected" >&2
+	exit 1
+fi
+
+action=$( dunstify -a "dwm" "Screenshot" "Saved as $(echo "$name") and copied to clipboard." -I "$name" -A "default,Open in SXIV" )
+
+[ $action = "default" ] && xdg-open "$name"
+
+

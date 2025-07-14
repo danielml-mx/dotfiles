@@ -1,0 +1,4 @@
+#!/bin/sh
+BRIGHT="$(printf %.0f $(light -G))%"
+echo "$BRIGHT"
+#echo "$BLOCK_BUTTON"

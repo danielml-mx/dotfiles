@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# simple script to call svkbd with the geometry I like it
+# with
+# not working, dock doesn't adapt to custom width
+
+svkbd-latam -d &

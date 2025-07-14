@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+sc="svkbd-latam -d\nkillall svkbd-latam"
+ex=$( printf "$sc" | dmenu -l 15 -c -p "Run: "  )
+$ex

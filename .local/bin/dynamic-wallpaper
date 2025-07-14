@@ -1,0 +1,26 @@
+#!/bin/sh
+#xwinwrap -ov -ni -g 1920x1080+0+0 -- mplayer \
+#        -wid WID \
+#	~/vids/yt/b-roll/output.mkv
+
+
+#xwinwrap -ov -ni -g 1920x1080+0+0 -- mpv --fullscreen \
+#        --no-stop-screensaver \
+#        --vo=gpu --hwdec=vdpau \
+#        --loop-file --no-audio --no-osc --no-osd-bar -wid WID \
+#        --no-input-default-bindings \
+#	--x11-name=mpv-full-opacity \
+#	vids/mty.webm
+
+killall xwinwrap
+
+xwinwrap -ov -g 1920x1080+0+0 -- mpv --fullscreen \
+        --no-stop-screensaver \
+        --vo=gpu --hwdec=vdpau \
+        --loop-file --mute=yes --no-osc --no-osd-bar -wid WID \
+	--x11-name=mpv-pause-unfocused \
+	--x11-netwm=yes \
+	vids/frozen_forest.webm
+
+	#--input-ipc-server=/tmp/mpvsocket \
+

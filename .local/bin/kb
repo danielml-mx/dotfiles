@@ -1,0 +1,23 @@
+#!/bin/sh
+
+layout=$( setxkbmap -query | grep layout | cut -d' ' -f6 )
+
+#[ layout -eq 'latam' ] && setxkbmap latam || setxkbmap us
+case $layout in
+	'latam')
+		setxkbmap us
+		notify-send -a dwm -r 100 Keyboard "Keyboard layout changed to US"
+		;;
+	'us')
+		setxkbmap latam
+		notify-send -a dwm -r 100 Keyboard "Keyboard layout changed to LATAM"
+		;;
+esac
+setxkbmap -option caps:swapescape
+setxkbmap -option compose:paus
+xmodmap -e "keycode 135 = Super_R"
+xmodmap -e "keycode 107 = Super_R"
+#numlockx on
+xset r rate 300 50
+
+

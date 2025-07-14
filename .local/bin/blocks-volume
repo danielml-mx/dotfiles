@@ -1,20 +1,10 @@
 #!/bin/sh
 
+# Script meant to be called by dwmblocks
+
 while ! pamixer ; do
      continue
 done
 
 VOL="󰕾 $( pamixer --get-volume-human )" ; [ "$VOL" = "󰕾 muted" ] && VOL="    "
 echo "$VOL"
-
-#if [ -z "$DISPLAY" ]; then
-#  # If $DISPLAY is empty, start a loop that keeps checking until it's set
-#  while [ -z "$DISPLAY" ]; do
-#    echo "Waiting for DISPLAY to be set..."
-#    sleep 1  # Optional: to avoid spinning too fast
-#  done
-#  echo "$DISPLAY is now set."
-#else
-#  # If $DISPLAY is already set, run once
-#  echo "$DISPLAY is already set."
-#fi

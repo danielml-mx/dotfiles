@@ -1,4 +1,6 @@
 #!/bin/sh
+
+# Script meant to be called by dwmblocks
+
 BRIGHT="$(printf %.0f $(light -G))%"
 echo "$BRIGHT"
-#echo "$BLOCK_BUTTON"

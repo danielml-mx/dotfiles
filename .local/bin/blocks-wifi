@@ -1,6 +1,7 @@
 #!/bin/sh
 
-#echo "󰖩"
+# Script meant to be called by dwmblocks
+
 case "$( sudo wpa_cli status | sed -n '2p' )" in
 	bssid*) echo 󰖩  ;;
 	wpa_state=INTERFACE_DISABLED) echo "󱚵" ;;

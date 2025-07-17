@@ -1,8 +1,9 @@
-! BLACK & WHITE !
+! BLACK & YELLOW !
 ! also change:
 ! - dunstrc
 ! - spicetify
 ! -
+
 !#define main_font RobotoMono Nerd Font:pixelsize=24:antialias=true:autohint=true
 #define main_font JetBrainsMono Nerd Font:pixelsize=24:antialias=true:autohint=true
 
@@ -12,14 +13,8 @@
 #define color_sel_fg      #222222
 #define color_sel_bg      #ffffff
 #define color_sel_border  #fffd00
-! https://www.schemecolor.com/taintless.php
-!
-
-! #00b8a8
-!
 
 Xcursor.theme: lighted-pixel-butter
-
 
 ! dwm
 dwm.borderpx:             2
@@ -75,13 +70,6 @@ Sxiv.background:	color_norm_bg
 Sxiv.foreground:   	color_sel_bg
 Sxiv.font:		main_font
 
-!nsxiv
-Nsxiv.window.background:color_norm_bg
-Nsxiv.window.foreground:color_sel_bg
-Nsxiv.bar.background:   color_norm_bg
-Nsxiv.bar.foreground:   color_sel_bg
-Nsxiv.bar.font:		main_font
-
 !dmenu
 dmenu.background: 	color_norm_bg
 dmenu.foreground: 	color_sel_border
@@ -90,18 +78,10 @@ dmenu.selbackground: 	color_sel_border
 !dmenu.selbackground: 	#ff0
 dmenu.selforeground: 	color_sel_fg
 
-! polybar
-polybar.background:	color_norm_bg
-polybar.background-alt:	color_sel_bg
-!polybar.foreground:	color_norm_fg
-polybar.foreground:	color_sel_bg
-polybar.foreground-alt:	color_sel_fg
-
 ! lockscreen
-!lockscreen.foreground: color_norm_fg
-lockscreen.foreground: color_sel_bg
-lockscreen.highlight:  color_norm_fg
-lockscreen.verified:   color_norm_fg
+lockscreen.foreground: color_norm_fg
+lockscreen.highlight:  color_sel_border
+lockscreen.verified:   color_sel_border
 lockscreen.ringcolor:  color_sel_fg
 lockscreen.wrong:      #f82a11
 lockscreen.background: color_norm_bg

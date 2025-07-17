@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Xresources
 xrandr --setprovideroutputsource modesetting NVIDIA-0
 xrandr --auto
@@ -32,7 +34,7 @@ xset r rate 300 50
 
 ## Speed up trackpoint
 # https://wiki.archlinux.org/title/TrackPoint
-xinput set-prop 12 344 1
+xinput set-prop "Elan TrackPoint" "libinput Accel Speed" 1
 
 ## Extra touchscreen processing
 touchegg &

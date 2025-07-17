@@ -37,6 +37,7 @@ export R_LIBS_USER="$XDG_DATA_HOME/r"
 export TEXMFHOME=$XDG_DATA_HOME/texmf
 export TEXMFVAR=$XDG_CACHE_HOME/texlive/texmf-var
 export TEXMFCONFIG=$XDG_CONFIG_HOME/texlive/texmf-config
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 
 # Making vim XDGBD compliant
 # https://blog.joren.ga/configuring/vim-xdg | Edited to fit this machine

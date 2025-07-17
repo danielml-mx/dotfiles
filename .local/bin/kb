@@ -19,5 +19,6 @@ xmodmap -e "keycode 135 = Super_R"
 xmodmap -e "keycode 107 = Super_R"
 #numlockx on
 xset r rate 300 50
+xinput set-prop "Elan TrackPoint" "libinput Accel Speed" 1
 
 

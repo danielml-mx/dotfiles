@@ -1,0 +1,3 @@
+[submodule "downs/repos/suckless/dwm"]
+	path = downs/repos/suckless/dwm
+	url = https://github.com/danielml-mx/dwm.git

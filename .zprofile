@@ -14,6 +14,7 @@ export XDG_STATE_HOME=$HOME/.local/state
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_RUNTIME_DIR=/run/user/1000
+export XDG_DOWNLOAD_DIR=$HOME/downs ##
 #export XAUTHORITY=$XDG_DATA_HOME/Xauthority
 export XAUTHORITY=$XDG_RUNTIME_DIR/Xauthority
 #export XRESOURCES=$XDG_CONFIG_HOME/x11/Xresources
@@ -52,6 +53,7 @@ export VIMINIT='source $MYVIMRC'
 #export MOZ_ENABLE_WAYLAND=1
 export MOZ_ENABLE_WAYLAND=0
 export MOZ_USE_XINPUT2=1
+export GITSTATUS_CACHE_DIR=$XDG_CONFIG_HOME/zsh/gitstatus-bin
 
 # Preferent programs
 export TERMCMD="st"

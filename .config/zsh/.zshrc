@@ -223,13 +223,7 @@ setopt correct
 alias startx='cd && startx'
 alias ls='ls --color=auto'
 alias unrar='unrar-free'
-# Rewrite st title after quitting certain programs
-alias cmus='cmus &&  echo -ne "\033]0;st\007"'
-alias ranger='ranger && echo -ne "\033]0;st\007"'
-alias lf='lf && echo -ne "\033]0;st\007"'
-alias pulsemixer='pulsemixer && echo -ne "\033]0;st\007"'
 alias bt="sudo bluetoothctl"
-alias usb="mkdir ~/usb && sudo mount -o rw,user,uid=1000,dmask=007,fmask=117 -U 8187-547D ~/usb"
 alias wifi="sudo wpa_cli status | grep ssid"
 alias dots='/usr/bin/git --git-dir="$HOME/.config/.dotfile-manager" --work-tree="$HOME"' # add to rc
 

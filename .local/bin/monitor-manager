@@ -17,7 +17,7 @@ case $option in
 
     "Extend" )
 	# TODO: manage mode, location
-	xrandr --output eDP-1 --primary --mode 1920x1080 --output $monitors --mode 1920x1080 ---above eDP-1
+	xrandr --output eDP-1 --primary --mode 1920x1080 --output $monitors --mode 1920x1080 --above eDP-1
 	;;
 
     "Off" )

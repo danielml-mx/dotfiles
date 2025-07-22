@@ -13,6 +13,7 @@ image/tiff=sxiv.desktop;
 image/gif=sxiv.desktop;
 image/heic=sxiv.desktop;
 image/bmp=sxiv.desktop;
+image/webp=sxiv.desktop;
 image/svg+xml=sxiv.desktop;
 image/vnd.microsoft.icon=sxiv.desktop
 application/pdf=sioyek.desktop;

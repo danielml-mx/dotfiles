@@ -1,0 +1,29 @@
+#!/bin/sh
+
+monitors=$( xrandr -q | awk '$2 == "connected" {print $1}' | grep -v eDP-1 )	# grep: exclude default laptop screen
+
+
+# if there is more than one monitor, use dmenu to select
+# which one to project to
+[ $(echo $monitors | wc -w ) -eq 1 ] || monitors=$( echo $monitors | dmenu -c -l 20 )
+
+
+option=$( printf "Duplicate\nExtend\nOff" | dmenu -c -l 20 -p $monitors )
+
+case $option in 
+    "Duplicate" )
+        xrandr --output eDP-1 --auto --output $monitors --auto --same-as eDP-1
+	;;
+
+    "Extend" )
+	# TODO: manage mode, location
+	xrandr --output eDP-1 --primary --mode 1920x1080 --output $monitors --mode 1920x1080 ---above eDP-1
+	;;
+
+    "Off" )
+	xrandr --output $monitors --off
+	;;
+esac
+
+
+

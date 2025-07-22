@@ -28,10 +28,6 @@ cmd newterm &{{
 	nohup st
 }}
 
-cmd fcd ${{
-	cd "$( find -type d | fzf --reverse )"
-}}
-
 cmd fopen ${{
 	xdg-open-nobg "$( find -type f | fzf --reverse )"
 }}
@@ -57,7 +53,6 @@ map <a-n>c push :newc<space>
 map w	# unmap from quit
 
 map t newterm
-map <c-g> fcd
 map <c-o> fopen
 map <c-c> quit
 map <c-s> quit

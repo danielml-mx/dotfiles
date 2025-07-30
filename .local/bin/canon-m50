@@ -1,8 +1,11 @@
 #!/bin/sh
 
-sudo rmmod v4l2loopback
-
+sudo rmmod v4l2loopback # remove the module if it's already loaded
 sudo modprobe v4l2loopback exclusive_caps=1 max_buffers=2 card_label="Canon M50" # load the module with the needed parameters
+gphoto2 --stdout --set-config liveviewsize=0 --capture-movie | ffmpeg  -i - -vcodec rawvideo -af "hqdn3d" -pix_fmt yuv420p -threads 0 -f v4l2 -s:v 1920x1080 -r 25 /dev/video4 &
 
-gphoto2 --stdout --capture-movie | ffmpeg -i - -vcodec rawvideo -af "hqdn3d" -pix_fmt yuv420p -threads 0 -s:v 1920x1080 -f v4l2 /dev/video4
+sleep 3 && mpv av://v4l2:/dev/video4 --profile=low-latency --untimed --force-window
 
+killall gphoto2
+
+rm -r ~/.gphoto

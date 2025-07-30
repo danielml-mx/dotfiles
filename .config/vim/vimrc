@@ -80,9 +80,6 @@ filetype indent on
 " Fix colorscheme change after Neovim 0.10
 " https://www.reddit.com/r/neovim/comments/189nw6r/comment/kbvd65x/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
 set notermguicolors
-if has('nvim')
-	colorscheme vim
-endif
 
 function! s:tweak_colors()
   hi SpecialKey 			term=bold ctermfg=4 guifg=Blue
@@ -151,7 +148,9 @@ endfunction
 
 autocmd! ColorScheme vim call s:tweak_colors()
 
-colorscheme vim
+if has('nvim')
+	colorscheme vim
+endif
 autocmd colorscheme * syntax on
 
 "https://alvinalexander.com/linux/vi-vim-editor-color-scheme-syntax/

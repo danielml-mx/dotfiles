@@ -1,12 +1,11 @@
 #!/bin/sh
 
-# Xresources
+# eGPU
 xrandr --setprovideroutputsource modesetting NVIDIA-0
 xrandr --auto
-xrdb $XRESOURCES
 
-#export $(dbus-launch)
-#export DBUS_SESSION_BUS_WINDOWID=18874369
+# Xresources
+xrdb $XRESOURCES
 
 # Wallpaper
 ~/.local/bin/wallpaper
@@ -17,16 +16,13 @@ picom &
 # Notifications
 dunst &
 
-# Calendar
-#calcurse --daemon && ~/.local/bin/startup-calcurse &
-
 # Set correct keyboard layout & swap Esc and Caps Lock & type faster
 setxkbmap latam
 setxkbmap -option caps:swapescape
 setxkbmap -option compose:paus
 xmodmap -e "keycode 135 = Super_R"
 xmodmap -e "keycode 107 = Super_R"
-numlockx on
+#numlockx on
 xset r rate 300 50
 
 ## Turn off trackpad
@@ -43,13 +39,9 @@ touchegg &
 ##rm ~/.fehbg
 #rm ~/.wget-hsts
 #rm ~/.python_history
-##rm ~/.lesshst
 rm -fr ~/.pki
 rm -fr ~/.fontconfig
 rm -fr ~/.gphoto
-###rm -fr ~/.dbus
-#rmdir ~/media/usb
-#rmdir ~/Media/ADATA
 
 # Night light
 #redshift -x; redshift -O 3600
@@ -57,17 +49,16 @@ rm -fr ~/.gphoto
 # Audio
 pipewire &
 pipewire-pulse &
-#/usr/bin/pipewire-media-session &
 wireplumber &
 
 # Status bar
 dwmblocks &
 
-# Just launch dwn
+# 1. Just launch dwn
 #exec dwm
 
-## Lauch and relauch when closed
+## 2. Lauch and relauch when closed
+## (facilitates dwm config.h changes)
 while true; do
 	dwm >/dev/null 2>&1
 done
-# (facilitates dwm config.h changes)

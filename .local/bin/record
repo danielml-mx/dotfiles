@@ -4,7 +4,9 @@
 
 [ -z "$1" ] && name=~/vids/$(date +'screencapture-%m%d%y-%H%M%S.mkv') || name=$1
 
-killall ffmpeg && dunstify -a "dwm" "Screen capturing" "Recording stopped" && exit
+# TODO: ver si se puede matar un proceso específico de
+# ffmpeg
+#killall ffmpeg && dunstify -a "dwm" "Screen capturing" "Recording stopped" && exit
 
 dunstify -a "dwm" "Screen capturing" "Starting screen recording "$name"" 
 

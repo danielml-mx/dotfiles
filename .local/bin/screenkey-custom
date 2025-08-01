@@ -2,4 +2,7 @@
 
 killall screenkey && exit
 
-screenkey --font-color yellow
+#screenkey --font-color yellow
+#screenkey --font-color yellow -g 1920x0
+screenkey --font-color yellow -g 300x600+810+500
+

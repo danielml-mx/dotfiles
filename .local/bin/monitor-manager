@@ -1,7 +1,17 @@
 #!/bin/sh
 
-monitors=$( xrandr -q | awk '$2 == "connected" {print $1}' | grep -v eDP-1 )	# grep: exclude default laptop screen
+# Script to manage external monitors with dmenu.
 
+primary=$( xrandr -q | grep primary | awk '{print $1}' )
+monitors=$( xrandr -q | awk '$2 == "connected" {print $1}' | grep -v $primary )	# grep: exclude primary monitor
+
+
+
+# if there are no monitors, exit
+[ $(echo $monitors | wc -w ) -eq 0 ] && exit
+# TODO: if a monitor is detected but unplugged, turn it off
+# automatically
+# logic will depend upon comparing xrandr -q and xrand --listactive monitors
 
 # if there is more than one monitor, use dmenu to select
 # which one to project to
@@ -13,15 +23,17 @@ option=$( printf "Duplicate\nExtend\nOff" | dmenu -c -l 20 -p $monitors )
 case $option in 
     "Duplicate" )
         xrandr --output eDP-1 --auto --output $monitors --auto --same-as eDP-1
+	notify-send -a "dwm" "Monitor Manager" "Duplicating $primary to $monitors"
 	;;
 
     "Extend" )
 	# TODO: manage mode, location
-	xrandr --output eDP-1 --primary --mode 1920x1080 --output $monitors --mode 1920x1080 --above eDP-1
+	xrandr --output $primary --primary --mode 1920x1080 --output $monitors --mode 1920x1080 --above eDP-1
 	;;
 
     "Off" )
 	xrandr --output $monitors --off
+	notify-send -a "dwm" "Monitor Manager" "Monitor $monitors is now off"
 	;;
 esac
 

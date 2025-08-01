@@ -1,18 +1,10 @@
-#!/bin/sh
+#!/usr/bin/zsh
 
 source ~/.zprofile		# uncomment if you're going to be changing the lockscreen from profile
 
 # rrggbbaa
 # https://hashnode.com/-post/understanding-rrggbbaa-color-notation-cisvdr52x088fwt53h1drf6m2
 IMG=${LOCK_WALLPAPER}
-#FOREGROUND=$( xrdb -get dwm.normfgcolor )ff
-#HIGHLIGHT=$( xrdb -get dwm.normfgcolor )bf
-#VERIFIED=$( xrdb -get dwm.normfgcolor )ff
-#RINGCOLOR=$( xrdb -get dwm.selbgcolor )bf
-#WRONG=f82a11aa
-##BACKGROUND=222222bf
-#BACKGROUND=$( xrdb -get dwm.normbgcolor )bf
-
 FOREGROUND=$( xrdb -get lockscreen.foreground )ff
 HIGHLIGHT=$( xrdb -get lockscreen.highlight )bf
 VERIFIED=$( xrdb -get lockscreen.verified )ff

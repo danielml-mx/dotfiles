@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/zsh
 
 source ~/.zprofile
 WALL=$( find $WALLS_DIR -type f | shuf -n 1 - )

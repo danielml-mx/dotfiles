@@ -5,10 +5,10 @@
 [ -z "$1" ] && name="/tmp/$(date +'screenshot-%m%d%y-%H%M%S.png')" || name=$1
 #[[ -z "$1" ]] && name="/tmp/$(date +'screenshot-%Y%m%d-%k%M.png')" || name=$1
 
-if [[ -n $WAYLAND_DISPLAY ]]; then
+if [ $WAYLAND_DISPLAY ]; then
 	grim -g "$(slurp -d)" "$name"
 	wl-copy --type image/png < "$name"
-elif [[ -n $DISPLAY ]]; then
+elif [ $DISPLAY ]; then
 	import -silent "$name" || exit
 	xclip -selection clipboard -target image/png "$name"
 else

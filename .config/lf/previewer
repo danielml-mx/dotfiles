@@ -1,7 +1,10 @@
 #!/bin/sh
 # Based heavily on https://github.com/cirala/lfimg and https://github.com/cirala/lfimg/blob/master/preview
+
 case "$1" in 
-	*rsa*|*ssh*|*gpg*) exit;;
+	*rsa*|*ssh*|*gpg*|*.git/config|*.dotfile-manager*/config) 
+		echo "Private file"
+		exit;;
 esac
 
 ft=$( file --mime-type "$1" -b )
@@ -20,13 +23,13 @@ ubpreview()
 
 kittypreview()
 {
-		file=$1
-		w=$2
-		h=$3
-		x=$4
-		y=$5
-		kitten icat --silent --stdin no --transfer-mode file --place "${w}x${h}@${x}x${y}" "$file" < /dev/null > /dev/tty
-			exit 1
+	file=$1
+	w=$2
+	h=$3
+	x=$4
+	y=$5
+	kitten icat --silent --stdin no --transfer-mode file --place "${w}x${h}@${x}x${y}" "$file" < /dev/null > /dev/tty
+	exit 1
 }
 
 CACHE="$HOME/.cache/lf/thumbnail.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}'))"
@@ -70,6 +73,9 @@ case "$ft" in
 			libreoffice --convert-to png "$1" --outdir "$(dirname ${CACHE})" > /dev/null && \
 			mv "$(dirname ${CACHE})/${f_base}.png" "$(dirname ${CACHE})/${f_cache}.png"
 		ubpreview "${CACHE}.png" "$2" "$3" "$4" "$5"
+		;;
+	*)
+		echo "No preview available."
 		;;
 esac
 

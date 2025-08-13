@@ -25,6 +25,9 @@ setopt interactivecomments
 # Prompt-correct commands
 setopt correct
 
+# Enable completion for aliases
+setopt completealiases
+
 #### Keybindings ####
 
 # Unbind some control sequences (like freeze)
@@ -135,7 +138,6 @@ alias startx='cd && startx'
 
 # Dotfile manager
 alias dots='/usr/bin/git --git-dir="$HOME/.config/.dotfile-manager" --work-tree="$HOME"'
-
 
 # Quick commands
 alias nv='nvim'

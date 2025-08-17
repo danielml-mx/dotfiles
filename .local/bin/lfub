@@ -8,20 +8,18 @@ set -e
 
 cleanup() {
     exec 3>&-
-	rm "$FIFO_UEBERZUG"
+	rm "$FIFO_PREVIEWER"
 }
 
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
 	lf "$@"
 else
-	#printf '\033]2;lfub\a' > /dev/tty %N ;
 	[ ! -d "$HOME/.cache/lf" ] && mkdir -p "$HOME/.cache/lf"
-	export FIFO_UEBERZUG="$HOME/.cache/lf/ueberzug-$$"
-	mkfifo "$FIFO_UEBERZUG"
-	ueberzug layer -s <"$FIFO_UEBERZUG" -p json &
-	exec 3>"$FIFO_UEBERZUG"
+	export FIFO_PREVIEWER="$HOME/.cache/lf/ueberzug-$$"
+	mkfifo "$FIFO_PREVIEWER"
+	ueberzug layer -s <"$FIFO_PREVIEWER" -p json &
+	exec 3>"$FIFO_PREVIEWER"
 	trap cleanup HUP INT QUIT TERM PWR EXIT
 	lf "$@" 3>&-
-	#printf '\033]2;Alacritty\a' > /dev/tty %N ;
 
 fi

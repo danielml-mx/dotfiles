@@ -1,5 +1,10 @@
 #!/bin/sh
-if [ -n "$FIFO_UEBERZUG" ]; then
-	printf '{"action": "remove", "identifier": "PREVIEW"}\n' > "$FIFO_UEBERZUG"
-	#kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
+if [ -n "$FIFO_PREVIEWER" ]; then
+	printf '{"action": "remove", "identifier": "PREVIEW"}\n' > "$FIFO_PREVIEWER"
+	mkdir /tmp/ub2
+else
+	kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
 fi
+
+#kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty || [ -n "$FIFO_PREVIEWER" ] && printf '{"action": "remove", "identifier": "PREVIEW"}\n' > "$FIFO_PREVIEWER"
+

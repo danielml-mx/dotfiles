@@ -1,7 +1,6 @@
 #!/bin/sh
 if [ -n "$FIFO_PREVIEWER" ]; then
 	printf '{"action": "remove", "identifier": "PREVIEW"}\n' > "$FIFO_PREVIEWER"
-	mkdir /tmp/ub2
 else
 	kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
 fi

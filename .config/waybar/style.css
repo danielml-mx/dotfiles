@@ -1,0 +1,188 @@
+
+/*Define the colors (Thanks mxkrsv)*/
+
+@define-color foreground #ffffff;
+@define-color selforeground #fffd00;
+@define-color background #222222;
+/*
+@define-color black	#282828;
+@define-color red	#cc241d;
+@define-color green	#98971a;
+@define-color yellow	#d79921;
+@define-color blue	#458588;
+@define-color purple	#b16286;
+@define-color aqua	#689d6a;
+@define-color gray	#a89984;
+@define-color brgray	#928374;
+@define-color brred	#fb4934;
+@define-color brgreen	#b8bb26;
+@define-color bryellow	#fabd2f;
+@define-color brblue	#83a598;
+@define-color brpurple	#d3869b;
+@define-color braqua	#8ec07c;
+@define-color white	#ebdbb2;
+@define-color bg2	#504945;
+@define-color darkbg rgb(50,46,44);
+@define-color white-inactive rgba(235, 219, 178, 0.2);
+
+
+@define-color warning 	@bryellow;
+@define-color critical	@red;
+@define-color mode	@black;
+@define-color unfocused	@bg2;
+@define-color focused	@braqua;
+@define-color inactive	@purple;
+@define-color sound	@brpurple;
+@define-color network	@purple;
+@define-color memory	@braqua;
+@define-color cpu	@green;
+@define-color temp	@brgreen;
+@define-color layout	@bryellow;
+@define-color battery	@aqua;
+@define-color date	@black;
+@define-color time	@white;
+*/
+
+#custom-dwm {
+  background-color: #222222;
+  color: yellow;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+* {
+    border: 0;
+    border-radius: 0px;
+    font-family: "RobotoMono Nerd Font Mono", "Jetbrains Mono,Courier Prime, Cascadia Mono, Fira Sans, Font Awesome, Ubuntu Nerd Font";
+    font-size: 21px;
+    min-height: 0;
+    border-radius: 0px;
+}
+
+#custom-media {
+	background-color: @background;
+	color: @selforeground;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+window#waybar {
+    background: @selforeground;
+    color: @selforeground;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+#custom-backup, #custom-wall-select, #custom-dots, #custom-hyprpaper-reload, #custom-update, #custom-play, #custom-stop, #custom-drawer {
+   color:  @color3;
+   padding: 2px;
+   background-color: @background;
+}
+
+#custom-dwm
+{
+   color: @foreground;
+}
+
+#custom-group-icon-2 {
+    color: @color3;
+    padding-left: 4px;
+    background-color: @background; 
+}
+
+
+#window {
+    color: @background;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+#workspaces {
+  padding: 0px;
+}
+
+
+#workspaces button /*#custom-play, #custom-stop*/ {
+    background-color: @background;   
+    color: @color4;
+    padding: 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-top: 0px solid transparent;
+}
+
+#workspaces button.active {
+    color: @background;   
+    padding: 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+    background-color: @selforeground;
+}
+
+
+#battery, #cpu, #memory, #pulseaudio, #custom-spotify, #tray, #mode {
+    padding: 0 3px;
+    background-color: @background; 
+}
+
+#clock {
+    background-color: @background;
+    color: @foreground
+}
+
+#battery {
+   color:  	@color9;
+   background-color: @background; 
+}
+
+
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: black;
+    }
+}
+
+
+#battery.warning:not(.charging) {
+    color: white;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+
+#memory {
+  background-color: @background;   
+  color: @color2;
+}
+
+
+
+#pulseaudio {
+  background-color: @background;   
+  color: @color14;
+}
+
+
+
+#tray {
+  background-color: @background; 
+}
+
+
+#custom-wofi, #custom-swaync, #custom-wall, #custom-reload, #custom-power {
+    padding: 2px;
+    background-color: @background; 
+    color: @color3;
+}
+
+
+#custom-power {
+	color: @color3;
+  background-color: @background;
+}
+

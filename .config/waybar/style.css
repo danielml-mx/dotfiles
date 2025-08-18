@@ -120,9 +120,15 @@ window#waybar {
 }
 
 
-#battery, #cpu, #memory, #pulseaudio, #custom-spotify, #tray, #mode {
+#custom-blocks-volume, #custom-blocks-brightness, #network, #battery, #cpu, #memory, #pulseaudio, #custom-spotify, #tray, #mode {
     padding: 0 3px;
     background-color: @background; 
+    color: @foreground
+}
+
+#custom-cross {
+    color: @selforeground;
+    background-color: @background;
 }
 
 #clock {
@@ -186,3 +192,26 @@ window#waybar {
   background-color: @background;
 }
 
+/* https://www.reddit.com/r/hyprland/comments/1dy4c8o/how_do_i_prevent_the_workspace_number_from/ */
+#workspaces button {
+            border: none;
+            font-weight: 400;
+            transition: all 150ms ease;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        #workspaces button:not(:last-child) {
+            margin-right: 2px;
+            transition: all 150ms ease;
+        }
+
+        #workspaces button:hover {
+            transition: all 150ms ease;
+        }
+
+        #workspaces button.active {
+            padding-left: 16px;
+            padding-right: 16px;
+            transition: all 150ms ease;
+        }

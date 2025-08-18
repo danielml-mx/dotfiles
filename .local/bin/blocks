@@ -15,7 +15,6 @@ volume() {
     echo "$VOL"
 }
 
-
 brightness() {
     BRIGHT="$(printf %.0f $(light -G))%"
     echo "$BRIGHT"

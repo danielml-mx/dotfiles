@@ -7,8 +7,7 @@
     // "width": 1366, // Waybar width HELLO
     // Choose the order of the modules
     "modules-left": ["hyprland/workspaces", "hyprland/submap", "custom/dwm",  "hyprland/window"],
-    "modules-center": [],
-    "modules-right": ["pulseaudio", "memory", "battery", "custom/media", "tray", "clock"],
+    "modules-right": ["battery", "custom/blocks-volume", "custom/blocks-brightness", "network", "clock", "custom/cross"],
     "hyprland/workspaces": {
         "disable-scroll": false,
         "all-outputs": false,
@@ -27,7 +26,9 @@
     },
     "hyprland/window": {
       "format": " {}",
-      "icon": "true"
+      "icon": "true",
+      "max-length": 100
+
     },
     "hyprland/submap": {
         "format": "{}"
@@ -37,7 +38,7 @@
         "spacing": 10
     },
     "clock": {
-	"format": "{:%a %h %d %r}",
+	"format": " {:%a %h %d %r} |",
         "interval": 1
     },
     "cpu": {
@@ -60,15 +61,14 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "[{capacity}% {icon}]",
+        "format": " {capacity}% {icon} | ",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         "format-icons": ["", "", "", "", ""]
     },
     "network": {
-        // "interface": "wlp2s0", // (Optional) To force the use of this interface
-        "format-wifi": " {essid} ({signalStrength}%)",
-        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+        "interface": "wlan0", // (Optional) To force the use of this interface
+        "format-wifi": "  |",
         "format-disconnected": "Disconnected ⚠",
         "on-click": "~/repos/rofi-wifi-menu/rofi-wifi-menu.sh"
     },
@@ -96,6 +96,19 @@
         "on-scroll-up": "waybar-media.py previous",
         "on-scroll-down": "waybar-media.py next",
         "escape": true
+    },
+    "custom/blocks-brightness": {
+	"format": " {} |",
+	"exec": "blocks brightness",
+	"signal": 3
+    },
+    "custom/blocks-volume": {
+	"format": "{} |",
+	"exec": "blocks volume",
+	"signal": 4
+    },
+    "custom/cross": {
+	"format": " 󰳶  "
     },
     "custom/spotify": {
         "format": " {}",

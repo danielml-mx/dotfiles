@@ -4,6 +4,3 @@ if [ -n "$FIFO_PREVIEWER" ]; then
 else
 	kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
 fi
-
-#kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty || [ -n "$FIFO_PREVIEWER" ] && printf '{"action": "remove", "identifier": "PREVIEW"}\n' > "$FIFO_PREVIEWER"
-

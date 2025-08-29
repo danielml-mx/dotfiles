@@ -29,10 +29,6 @@ cmd newterm &{{
 	nohup st
 }}
 
-cmd fopen ${{
-	xdg-open-nobg "$( find -type f | fzf --reverse )"
-}}
-
 cmd on-cd &{{
     printf "\033]2;$PWD - lf\a" > /dev/tty
 }}
@@ -54,7 +50,6 @@ map <a-n>c push :newc<space>
 map w	# unmap from quit
 
 map t newterm
-map <c-o> fopen
 map <c-c> quit
 map <c-s> quit
 

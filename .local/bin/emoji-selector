@@ -2,11 +2,10 @@
 
 # Sed is used to ignore first line since it contains the original
 # link to the emojis.
-	if [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
-		sed 1,1d ~/.local/share/emoji | dmenu -l 15 | cut -d' ' -f1 | xclip -selection clipboard -rmlastnl
-		[ -n "$( xclip -selection clipboard -o )" ] && notify-send -a "dwm" "Emoji Picker" "Emoji copied to clipboard: $(xclip -selection clipboard -o)" #-i $name
-	else
-		sed 1,1d ~/.local/share/emoji | wofi -d -l 15 | cut -d' ' -f1 | wl-copy -n
-		[ -n "$( wl-paste )" ] && notify-send -a "Hyprland" "Emoji Picker" "Emoji copied to clipboard: $(wl-paste)" #-i $name
-
-	fi
+if [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
+    sed 1,1d ~/.local/share/emoji | dmenu -l 15 | cut -d' ' -f1 | xclip -selection clipboard -rmlastnl
+    [ -n "$( xclip -selection clipboard -o )" ] && notify-send -a "dwm" "Emoji Picker" "Emoji copied to clipboard: $(xclip -selection clipboard -o)" #-i $name
+else
+    sed 1,1d ~/.local/share/emoji | wofi -d -l 15 | cut -d' ' -f1 | wl-copy -n
+    [ -n "$( wl-paste )" ] && notify-send -a "Hyprland" "Emoji Picker" "Emoji copied to clipboard: $(wl-paste)" #-i $name
+fi

@@ -166,6 +166,7 @@ alias 8..="cd ../../../../../../../.."
 alias 9..="cd ../../../../../../../../.."
 alias 10..="cd ../../../../../../../../../.."
 alias hss="hugo server --noHTTPCache --disableFastRender"
+alias hnc="hugo new content"
 alias ktd='killall transmission-daemon'
 alias unrar='unrar-free'
 # Make programs cleaner and force them to use less cache

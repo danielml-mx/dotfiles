@@ -23,6 +23,7 @@
     X(" ", 	"blocks brightness", 		0, 	3) \
     X("", 	"blocks volume", 		3, 	4) \
     X("📅 ", 	"date +'%a %h %d %r'", 		1, 	5) \
-    X("", 	"echo '^c#fffd00^󰳶  '", 	0, 	0)
+    X("", 	"echo '^c#ff2c2c^󰳶  '", 	0, 	0)
+    //X("", 	"echo '^c#fffd00^󰳶  '", 	0, 	0)
 
 #endif  // CONFIG_H

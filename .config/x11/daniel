@@ -12,7 +12,9 @@
 #define color_norm_fg 	  #ffffff
 #define color_sel_fg      #222222
 #define color_sel_bg      #ffffff
-#define color_sel_border  #fffd00
+!#define color_sel_border  #fffd00
+!#define color_sel_border  #1e7df0
+#define color_sel_border  #ff2c2c
 
 Xcursor.theme: lighted-pixel-butter
 

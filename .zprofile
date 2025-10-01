@@ -64,7 +64,7 @@ export VISUAL=nvim
 
 
 # Personal variables
-export WALLS_DIR=$HOME/downs/wallpapers/my_lion.png
+export WALLS_DIR=$HOME/downs/wallpapers/arcane/moon.jpg
 export LOCK_WALLPAPER=/tmp/lockwall.png
 
 # Temporary sioyek fix

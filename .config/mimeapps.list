@@ -28,7 +28,3 @@ inode/directory=stfm.desktop;
 application/gzip=com.github.xournalpp.xournalpp.desktop
 application/octet-stream=librewolf.desktop;
 application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoffice-writer.desktop;
-
-[Added Associations]
-application/pdf=libreoffice-writer.desktop;com.github.xournalpp.xournalpp.desktop;sioyek.desktop;
-application/x-xpinstall=org.mozilla.Thunderbird.desktop;

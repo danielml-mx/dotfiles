@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=st
+GenericName=Terminal emulator
+Comment=st is a simple terminal implementation for X
+StartupNotify=true
+TryExec=st
+Exec=st -d %U
+Icon=st
+Categories=System;TerminalEmulator;
+NoDisplay=true
+MimeType=image/*;application/x-sh;application/x-shellscript;inode/directory;text/*;x-scheme-handler/kitty;x-scheme-handler/ssh;
+
+

@@ -20,6 +20,7 @@ endif
 
 " General
 set title 		" Show title in terminal
+set cursorline		" Highlight entire selected line
 set showcmd		" Show commands (bottom-right corner)
 set linebreak		" Linebreak (wrap lines around spaces, not the middle of words)
 set incsearch   	" Real-time searching/matching
@@ -35,8 +36,18 @@ set clipboard=unnamedplus " Clipboard
 set tw=60		" match gqq char size w/ font I use
 filetype detect		" Detect filetype syntax
 filetype indent on 	" Smart indentation
-colorscheme unokai	" Colorscheme
-hi Normal guibg=NONE ctermbg=NONE " Don't change the background color of the terminal
+
+" Colorscheme
+" Done with a function to fix an issue with Goyo
+" https://github.com/junegunn/goyo.vim/issues/84#issuecomment-156299446
+function! s:tweak_colors()
+    "colorscheme unokai	" Colorscheme
+    hi Normal guibg=NONE ctermbg=NONE " Don't change the background color of the terminal
+endfunction
+autocmd! ColorScheme unokai call s:tweak_colors()
+
+colorscheme unokai
+
 
 " Re-opening a file in the exact line it was closed
 if has("autocmd")
@@ -66,24 +77,17 @@ inoremap <C-h> <C-\><C-o>db
 
 
 " Plug-in support
+
+" https://vonheikemen.github.io/devlog/tools/installing-neovim-plugins-without-a-plugin-manager/
+set packpath^=$XDG_CONFIG_HOME/vim/plugins/
+
 call plug#begin('~/.config/vim/plugins')
-    "Plug 'skammer/vim-css-color'
-    "Plug 'jiangmiao/auto-pairs'
+    Plug 'vimwiki/vimwiki'
     Plug 'ap/vim-css-color'
-    Plug 'chikamichi/mediawiki.vim'
-    Plug 'itchyny/calendar.vim'
-    "Plug 'mattn/calendar-vim'
-    "Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'junegunn/goyo.vim'
     Plug 'elkowar/yuck.vim'
-    "Plug 'nvim-treesitter/nvim-treesitter'
-    Plug 'guanghwang/vim-stata-linux', { 'branch': 'main', 'for': 'stata'}  "stata exec
-    "Plug 'vimwiki/vimwiki'
-    if has('nvim')
-    	Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " or manually 'call firenvim#install(0)'
-    endif
+    Plug 'nvim-tree/nvim-web-devicons'
 call plug#end()
-
 
 " Goyo config
 let g:goyo_width = 60
@@ -91,21 +95,13 @@ nnoremap <A-b> :Goyo<Enter>
 inoremap <A-b> <Esc>:Goyo<Enter>a
 
 " VimWiki config
-let notas_global = {}
-let notas_global.name = 'Default'
-let notas_global.path = '~/.local/share/vimwiki/'
+source $XDG_CONFIG_HOME/vim/indices.vim		" personal file with every index file I use
 
-let notas_familia = {}
-let notas_familia.name = 'Familia y sucesiones'
-let notas_familia.path = '~/docs/tec/sem-5/familia-y-sucesiones/'
-
-let notas_contratos = {}
-let notas_contratos.name = 'Contratos'
-let notas_contratos.path = '~/docs/tec/sem-5/contratos-civiles-y-mercantiles/'
-
-let g:vimwiki_list = [notas_global, 
-		    \ notas_familia, 
-		    \ notas_contratos]
+" (make rendermarkdown.nvim compatible with vimwiki)
+ if has('nvim')
+    lua require('render-markdown').setup({file_types = { 'markdown', 'vimwiki' }, })
+    lua vim.treesitter.language.register('markdown', 'vimwiki')
+endif
 
 
 " Filetype-specific settings
@@ -180,8 +176,6 @@ autocmd FileType c imap <buffer> <F5> <Esc>:w<Enter>:exec '!gcc' shellescape(@%,
 autocmd FileType cpp map  <buffer> <F5> :w<Enter>:exec '!g++' shellescape(@%, 1)<Enter>
 autocmd FileType cpp imap <buffer> <F5> <Esc>:w<Enter>:exec '!g++' shellescape(@%, 1)<Enter>
 
-
 " CSS
 autocmd FileType css setlocal ts=2 sw=2 expandtab
-
 

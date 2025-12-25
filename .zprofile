@@ -39,6 +39,7 @@ export TEXMFHOME=$XDG_DATA_HOME/texmf
 export TEXMFVAR=$XDG_CACHE_HOME/texlive/texmf-var
 export TEXMFCONFIG=$XDG_CONFIG_HOME/texlive/texmf-config
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
+export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
 
 # Making vim XDGBD compliant
 # https://blog.joren.ga/configuring/vim-xdg | Edited to fit this machine
@@ -64,7 +65,7 @@ export VISUAL=nvim
 
 
 # Personal variables
-export WALLS_DIR=$HOME/downs/wallpapers/arcane/moon.jpg
+export WALLS_DIR=$HOME/downs/wallpapers/fam/DSC00624.JPG
 export LOCK_WALLPAPER=/tmp/lockwall.png
 
 # Temporary sioyek fix

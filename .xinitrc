@@ -54,6 +54,14 @@ wireplumber &
 # Status bar
 dwmblocks &
 
+# Start D-Bus session (temporary fix)
+if command -v dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
+    eval "$(dbus-launch --sh-syntax --exit-with-session)"
+fi
+
+# Set environment variables for D-Bus
+export $(dbus-launch)
+
 # 1. Just launch dwn
 #exec dwm
 

@@ -18,7 +18,14 @@ if [[ -n $WAYLAND_DISPLAY ]]; then
 	otpdisplay="wl-paste"
 elif [[ -n $DISPLAY ]]; then
 	dmenu=dmenu
-	xdotool="xdotool type --clearmodifiers --file -"
+
+	# xdotool became really slow after an update, setting
+    # --delay to 0 helps but it's still not nearly
+    # as fast as before.
+
+	#xdotool="xdotool type --clearmodifiers --file -"
+	xdotool="xdotool type --clearmodifiers --delay 0 --file -"
+
 	hitenter="xdotool key ENTER" ###
 	otpdisplay="xclip -selection clipboard -o"
 else

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-shopt -s nullglob globstar
+shopt -s nullglob globstar lastpipe
 
 typeit=0
 if [[ $1 == "--type" ]]; then
@@ -22,6 +22,8 @@ elif [[ -n $DISPLAY ]]; then
 	# xdotool became really slow after an update, setting
     # --delay to 0 helps but it's still not nearly
     # as fast as before.
+    
+    # Downgrading seems to have fixed this.
 
 	#xdotool="xdotool type --clearmodifiers --file -"
 	xdotool="xdotool type --clearmodifiers --delay 0 --file -"
@@ -38,7 +40,6 @@ password_files=( "$prefix"/**/*.gpg )
 password_files=( "${password_files[@]#"$prefix"/}" )
 password_files=( "${password_files[@]%.gpg}" )
 
-#password=$(printf '%s\n' "${password_files[@]}" | "$dmenu" "$@")
 password=$(printf '%s\n' "${password_files[@]}" | $dmenu "$@")
 
 [[ -n $password ]] || exit
@@ -46,11 +47,28 @@ password=$(printf '%s\n' "${password_files[@]}" | $dmenu "$@")
 if [[ $typeit -eq 0 ]]; then
 	pass show -c "$password" 2>/dev/null
 else
-	pass show "$password" | { IFS= read -r pass; printf %s "$pass"; } | $xdotool #&& $hitenter
-fi
+	# pass show "$password" | { IFS= read -r pass; IFS= read -r otpuri; printf %s "$pass"; } | $xdotool #&& $hitenter
 
-# OTPs
-if [[ $password = @("tec"|"otra-otp") ]]; then
-	pass otp $password -c && notify-send -a "dwm" "OTP" "OTP code copied to clipboard: $($otpdisplay)"
+    # { IFS= read -r pass ; IFS= read -r otpuri } < <(pass show tec)
+    #printf %s "$pass" | $xdotool
+    # unset pass
+
+    # { IFS= read -r ; printf %s "$REPLY" ; IFS= read -r user } < <(pass show "$password") | $xdotool
+
+    # Logic to limit scope of password, detect
+    # if an OTP URI exists and if it does,
+    # invoke the handler. This assumes a
+    # password structure where the first line
+    # is the password and the second is the URI.
+    pass show "$password" | 
+        {
+            IFS= read -r pass
+            IFS= read -r otpuri
+
+            printf %s "$pass" | $xdotool
+
+            # OTPs
+            [ -n "$otpuri" ] && pass otp $password -c && notify-send -a "dwm" "OTP" "OTP code copied to clipboard: $($otpdisplay)"
+        }
 fi
 

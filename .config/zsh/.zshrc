@@ -122,6 +122,8 @@ cdopen() {
 	echo -ne "\033]0;$(pwd) - $cTERM\007"
 }
 
+alias cvim='sudo vim --clean'
+
 # Bind previous functions to keys
 bindkey -s '^o' '^ucdopen\n^l'
 bindkey -s '^s' '^ulfcd\n^l'
@@ -144,7 +146,7 @@ alias nv='nvim'
 alias cpcb='xclip -selection clipboard -r'
 alias nmut="neomutt"
 alias zath="zathura"
-alias rD="rmdir D*"
+alias rD="rmdir D* ; rmdir T*"
 alias trm='transmission-remote'
 alias neofetch='neofetch --no_config --ascii_colors 11 11 11 11 11 11 --colors 11 11 11 11 11 15'
 alias sdcv="sdcv -c"
@@ -180,7 +182,6 @@ alias poweroff="sudo poweroff"
 alias smci="sudo make clean install"
 alias smi="sudo make install"
 alias wifi="sudo wpa_cli status | grep ssid"
-alias cvim='sudo vim --clean'
 
 # Open configs
 alias zrc="$EDITOR $ZDOTDIR/.zshrc && source $ZDOTDIR/.zshrc"
@@ -198,6 +199,7 @@ alias dunstrc="$EDITOR ~/.config/dunst/dunstrc"
 alias mbsync="mbsync -c '$XDG_CONFIG_HOME'/isync/mbsyncrc"
 alias monerod="monerod --data-dir '$XDG_DATA_HOME'/bitmonero"
 alias monero-wallet-cli="monero-wallet-cli --wallet-file ~/.local/share/monero-wallet/monero-wallet --shared-ringdb-dir /dev/null --log-file ~/.cache/monero-wallet-cli.log"
+alias startx="sx"
 
 #### Plugins ####
 
@@ -208,6 +210,7 @@ alias monero-wallet-cli="monero-wallet-cli --wallet-file ~/.local/share/monero-w
 source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 zstyle ':completion:*' ignored-patterns 'nvidia*|'	# ignore certain patterns
+zstyle ':completion:*' hosts off      # do not autocomplete from hosts file
 
 # Syntax highlighting
 source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null

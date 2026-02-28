@@ -19,23 +19,27 @@ if !has('nvim') " Neovim has its own location which already complies with XDG sp
 endif
 
 " General
-set title 		" Show title in terminal
-set cursorline		" Highlight entire selected line
-set showcmd		" Show commands (bottom-right corner)
-set linebreak		" Linebreak (wrap lines around spaces, not the middle of words)
-set incsearch   	" Real-time searching/matching
-set hlsearch		" Highlight all matches
-set ic 			" Case-insensitive matching
-set smartcase		" Partial matching
+set title 		        " Show title in terminal
+set cursorline		    " Highlight entire selected line
+set showcmd		        " Show commands (bottom-right corner)
+set linebreak		    " Linebreak (wrap lines around spaces, not the middle of words)
+set incsearch   	    " Real-time searching/matching
+set hlsearch		    " Highlight all matches
+set ic 			        " Case-insensitive matching
+set smartcase		    " Partial matching
 "set inccommand=split   " Disable live substitution
 set display=truncate    " When part of a line is off-screen, truncate that part instead of the whole line
 set number relativenumber " Line-counter and relative line-counter 	https://vim.fandom.com/wiki/Display_line_numbers  https://stackoverflow.com/questions/313463/storing-vim-settings-with-a-document#313466 (last solution)
-"set mouse=		" Disable mouse
-"set laststatus=1	" Remove redundant status bar
+"set mouse=		        " Disable mouse
+"set laststatus=1	    " Remove redundant status bar
 set clipboard=unnamedplus " Clipboard
-set tw=60		" match gqq char size w/ font I use
-filetype detect		" Detect filetype syntax
-filetype indent on 	" Smart indentation
+"set tw=60		        " match gqq char size w/ font I use
+filetype detect		    " Detect filetype syntax
+filetype indent on 	    " Smart indentation
+set tabstop=4 		    " Default tab is 4 spaces, may be changed per filetype
+set shiftwidth=4 	    " Default tab is 4 spaces, may be changed per filetype
+set expandtab		    " Default tab is 4 spaces, may be changed per filetype
+
 
 " Colorscheme
 " Done with a function to fix an issue with Goyo
@@ -43,10 +47,14 @@ filetype indent on 	" Smart indentation
 function! s:tweak_colors()
     "colorscheme unokai	" Colorscheme
     hi Normal guibg=NONE ctermbg=NONE " Don't change the background color of the terminal
+    " temporary fix, must patch st to support undercurl
+    hi SpellBad gui=undercurl guibg=NONE guifg=#c53b53
+    hi SpellCap gui=undercurl guibg=NONE guifg=#ffc777
+    hi SpellLocal gui=undercurl guibg=NONE guifg=#0db9d7
+    hi SpellRare gui=undercurl guibg=NONE guifg=#4fd6be
 endfunction
-autocmd! ColorScheme unokai call s:tweak_colors()
+autocmd! ColorScheme tokyonight-moon call s:tweak_colors()
 
-colorscheme unokai
 
 
 " Re-opening a file in the exact line it was closed
@@ -87,7 +95,11 @@ call plug#begin('~/.config/vim/plugins')
     Plug 'junegunn/goyo.vim'
     Plug 'elkowar/yuck.vim'
     Plug 'nvim-tree/nvim-web-devicons'
+    Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'folke/tokyonight.nvim'
 call plug#end()
+
+colorscheme tokyonight-moon
 
 " Goyo config
 let g:goyo_width = 60
@@ -101,8 +113,11 @@ source $XDG_CONFIG_HOME/vim/indices.vim		" personal file with every index file I
  if has('nvim')
     lua require('render-markdown').setup({file_types = { 'markdown', 'vimwiki' }, })
     lua vim.treesitter.language.register('markdown', 'vimwiki')
+    lua require('render-markdown').setup({heading = { sign = false },})
 endif
 
+" TODO https://github.com/olimorris/codecompanion.nvim/discussions/1691
+lua require("nvim-treesitter.configs").setup({ ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "yaml", "python", "javascript", "typescript", "tsx", "html", "css", "json", "go", "gomod", "gosum", "gowork"}})
 
 " Filetype-specific settings
 
@@ -110,7 +125,7 @@ endif
 autocmd FileType markdown imap  <C-b> ****<Esc>hi
 
 " HTML
-autocmd FileType html setlocal ts=4 sw=4 expandtab
+"autocmd FileType html setlocal ts=4 sw=4 expandtab
 autocmd FileType html map  <buffer> <F5> :w<Enter>:exec '!librewolf' shellescape(@%, 1)<Enter>
 autocmd FileType html imap  <buffer> <F5> :w<Enter>:exec '!librewolf' shellescape(@%, 1)<Enter>
 

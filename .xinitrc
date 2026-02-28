@@ -8,7 +8,7 @@ xrandr --auto
 xrdb $XRESOURCES
 
 # Wallpaper
-~/.local/bin/wallpaper
+~/.local/bin/wallpaper --dynamic &
 
 # Compositor
 picom &

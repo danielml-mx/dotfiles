@@ -18,12 +18,12 @@
 
 // Define blocks for the status feed as X(icon, cmd, interval, signal).
 #define BLOCKS(X)             \
-    X("", 	"blocks battery", 		10,	1)  \
-    X("", 	"blocks wifi", 			5, 	2)   \
-    X(" ", 	"blocks brightness", 		0, 	3) \
-    X("", 	"blocks volume", 		3, 	4) \
-    X("📅 ", 	"date +'%a %h %d %r'", 		1, 	5) \
-    X("", 	"echo '^c#ff2c2c^󰳶  '", 	0, 	0)
+    X("", 	    "blocks battery", 		    10,         1)  \
+    X("", 	    "blocks wifi", 			    5, 	        2)   \
+    X(" ",	    "blocks brightness", 	    0, 	        3) \
+    X("", 	    "blocks volume", 		    3, 	        4) \
+    X("📅 ",    "date +'%a %h %d %r'", 	    1, 	        5) \
+    X("", 	    "echo '  '", 	            0, 	        0)
     //X("", 	"echo '^c#fffd00^󰳶  '", 	0, 	0)
 
 #endif  // CONFIG_H

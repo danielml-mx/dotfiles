@@ -44,9 +44,16 @@ brightness() {
 }
 
 wifi() {
+    case "$(cat /sys/class/net/eth*/operstate 2>/dev/null)" in
+	    *up*) 
+            echo "󰈀 "
+            return
+            ;;
+    esac
+
     case "$(cat /sys/class/net/wl*/operstate 2>/dev/null)" in
-	up) echo 󰖩  ;;
-        down) echo "󱚵" ;;
+	    *up*) echo 󰖩  ;;
+        *) echo "󱚵" ;;
     esac
 }
 

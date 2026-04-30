@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# If image name is not passed (as arg #1), then assign /tmp/date as name
+#[[ -z "$1" ]] && name="/tmp/$(date +'screenshot-%m-%d-%y--%k-%M.png')" || name=$1
+[ -z "$1" ] && name="/tmp/$(date +'screenshot-%m%d%y-%H%M%S.png')" || name=$1
+#[[ -z "$1" ]] && name="/tmp/$(date +'screenshot-%Y%m%d-%k%M.png')" || name=$1
+
+import -silent "$name" && \
+	xclip -selection clipboard -target image/png "$name"
+
+action=$( dunstify -a "dwm" "Screenshot" "Saved as $(echo "$name") and copied to clipboard." -i "$name" -A "default,Open in SXIV" )
+
+[ $action = "default" ] && sxiv "$name"
+
+

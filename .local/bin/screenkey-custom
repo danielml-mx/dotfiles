@@ -1,0 +1,3 @@
+#!/bin/sh
+
+pidof /usr/bin/python && killall /usr/bin/python || screenkey --font-color "#008AD8" --font "RobotoMono Light" --vis-shift -t 1 --opacity 0.5

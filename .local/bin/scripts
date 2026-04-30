@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec=$( ls ~/.local/bin | dmenu -l 15 -c )
+~/.local/bin/$exec

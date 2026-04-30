@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Improve this thing later...
+#pidof ffmpeg && killall ffmpeg || ffmpeg -video_size 1280x800 -framerate 25 -f x11grab -i :0.0+0,0 output.mkv
+pidof ffmpeg && killall ffmpeg && exit
+
+RES=$( xdpyinfo | awk '/dimensions/ {print $2}' )
+
+ans=$( echo \
+"1: Record screen ($RES)
+2: Record screen & audio ($RES) (default spkr)" | dmenu -c -l 20 | awk -F ":" '{print $1}' )
+
+case $ans in
+	1) ffmpeg -video_size $RES -framerate 25 -f x11grab -i :0.0+0,0 ~/output.mkv ;;
+	2) ffmpeg -video_size $RES -framerate 25 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default ~/output.mkv ;;
+esac

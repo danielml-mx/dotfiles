@@ -1,0 +1,88 @@
+## Preferences
+# Search
+set incsearch true
+#set ignoredia on
+set smartdia true
+
+#
+set icons true
+set drawbox true
+set wrapscroll true
+set relativenumber true
+#set shellopts "-ue"
+#
+
+# Opening files:
+# If it is an image, use the special sxiv command
+# else handle with xdg-open.
+cmd open &{{
+    test -L "$f" && f=$(readlink -f "$f")
+    case $(file --mime-type "$f" -b) in
+        image/vnd.djvu) xdg-open "$fx" ;;							# open as same process (good for term swallowing)
+        image/*) sxiv "$fx" 	;;
+        *) xdg-open "$fx" ;;							# open as same process (good for term swallowing)
+        #*) for f in "$fx"; do xdg-open "$f" > /dev/null 2> /dev/null & done;;	# open as different 
+    esac
+}}
+
+cmd dirshell ${{
+	#$SHELL
+	$SHELL
+	quit
+	#cd $( cat /tmp/lf.$USER.lastdir )
+}}
+
+# New tex:
+# TODO
+#cmd newtexbook %cp ~/.local/share/templates/book.tex $1.tex
+#cmd newtexart  %{{
+#
+#cp ~/.local/share/templates/article.tex $1.tex
+#}}
+#cmd newtexart  %cp ~/.local/share/templates/book.tex $1
+
+cmd newtex ${{
+	# todo: ivconv & ignore spaces
+	filename=$( echo "$2" | sed 's/\.tex//' )
+	cp ~/.local/share/templates/$1.tex "$filename.tex"
+	$EDITOR "$filename.tex"
+}}
+
+cmd newc ${{
+	filename=$( echo "$1" | sed 's/\.c//' )
+	cp ~/.local/share/templates/c.c "$filename.c"
+	$EDITOR "$filename.c"
+}}
+
+cmd newterm &{{
+	# https://stackoverflow.com/questions/19302913/exit-zsh-but-leave-running-jobs-open
+	#nohup st & disown
+	nohup st
+}}
+
+map t newterm
+
+## Keybindings
+map R :source ~/.config/lf/lfrc
+map H cd
+#map <c-h> set hidden!
+map <backspace> set hidden! # Control + H
+map g top
+#map n
+map <a-n>tb push :newtex<space>book<space>
+map <a-n>ta push :newtex<space>article<space>
+map <a-n>tp push :newtex<space>poem<space>
+map <a-n>c push :newc<space>
+map w
+map <c-w> quit
+map Ct cd ~/docs/tec/tarea/feb-jun22
+#map w
+#map w dirshell
+
+
+#set previewer '~/.config/lf/previewer'
+set previewer ~/.config/lf/previewer
+set cleaner ~/.config/lf/cleaner
+
+#<c-x> yank path of selected file
+

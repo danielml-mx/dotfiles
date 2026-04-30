@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cat ~/.local/share/emoji | dmenu -l 15 | cut -d' ' -f1 | xclip -selection clipboard -rmlastnl
+[ -n "$( xclip -selection clipboard -o )" ] && notify-send -a "dwm" "Emoji Picker" "Emoji copied to clipboard: $(xclip -selection clipboard -o)" #-i $name

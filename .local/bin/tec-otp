@@ -1,0 +1,3 @@
+#!/bin/sh
+pass otp tec -c && notify-send -a "dwm" "OTP" "OTP code copied to clipboard: $(xclip -selection clipboard -o)" #-i $name 
+

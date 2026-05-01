@@ -146,7 +146,7 @@ alias nv='nvim'
 alias cpcb='xclip -selection clipboard -r'
 alias nmut="neomutt"
 alias zath="zathura"
-alias rD="rmdir D* ; rmdir T*"
+alias rD="rmdir Downloads ; rmdir thunderbird"
 alias trm='transmission-remote'
 alias neofetch='neofetch --no_config --ascii_colors 11 11 11 11 11 11 --colors 11 11 11 11 11 15'
 alias sdcv="sdcv -c"
@@ -199,7 +199,7 @@ alias dunstrc="$EDITOR ~/.config/dunst/dunstrc"
 alias mbsync="mbsync -c '$XDG_CONFIG_HOME'/isync/mbsyncrc"
 alias monerod="monerod --data-dir '$XDG_DATA_HOME'/bitmonero"
 alias monero-wallet-cli="monero-wallet-cli --wallet-file ~/.local/share/monero-wallet/monero-wallet --shared-ringdb-dir /dev/null --log-file ~/.cache/monero-wallet-cli.log"
-alias startx="sx"
+#alias startx="sx"
 
 #### Plugins ####
 

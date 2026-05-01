@@ -7,10 +7,10 @@
 !#define main_font RobotoMono Nerd Font:pixelsize=24:antialias=true:autohint=true
 #define main_font JetBrainsMono Nerd Font:pixelsize=24:antialias=true:autohint=true
 
-#define color_norm_bg 	  #222222
+#define color_norm_bg 	  #000000
 #define color_norm_border #333333
 #define color_norm_fg 	  #ffffff
-#define color_sel_fg      #222222
+#define color_sel_fg      #121212
 #define color_sel_bg      #ffffff
 !#define color_sel_border  #fffd00
 #define color_sel_border  #ffffff

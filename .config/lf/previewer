@@ -57,7 +57,7 @@ case "$ft" in
 		preview "${CACHE}.jpg" "$2" "$3" "$4" "$5"
 		;;
 	application/x-rar) unrar-free l "$1";;
-	text/* | application/mbox | application/javascript ) bat --wrap auto --terminal-width "$(($4 - 4))" -f "$1" ;;
+	text/* | application/mbox | application/javascript | application/json ) bat --wrap auto --terminal-width "$(($4 - 4))" -f "$1" ;;
 	application/gzip)  
 		[ ! -f "${CACHE}.png" ] && \
 			xournalpp -n 1 -i "${CACHE}.png" "$1" --export-range=1

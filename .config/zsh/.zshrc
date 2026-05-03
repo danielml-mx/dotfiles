@@ -171,6 +171,7 @@ alias hss="hugo server --noHTTPCache --disableFastRender"
 alias hnc="hugo new content"
 alias ktd='killall transmission-daemon'
 alias unrar='unrar-free'
+alias spotify='spotify-notifications-workaround & spotify'
 # Make programs cleaner and force them to use less cache
 alias sxiv='sxiv -p -a'
 alias wget='wget --hsts-file=/dev/null'

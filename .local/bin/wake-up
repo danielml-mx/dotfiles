@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# This is a script I use as my wake up alarm.
+# Basically it shuffles a bunch of links (motivational videos)
+# I have stored in a text file (or, optionally), a file you provide),
+# and then starts playing them with mpv. The exported variables allow
+# mpv to display properly when being called from cron.
+
+export DISPLAY=:0
+export XAUTHORITY=/run/user/1000/Xauthority
+shuf "${1:-$HOME/docs/personal/links.txt}" | mpv --playlist=- --force-window=immediate --auto-window-resize=no

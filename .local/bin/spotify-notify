@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# As of Feb/2026 notifications are no longer supported
+# natively via spotify. Basically is just meant to work
+# as a replacement/alias to spotify but calling another
+# script (spotify-notifications-workaround) which 
+# handles notifications separately.
+
+spotify-notifications-workaround &
+spotify
+killall spotify-notifications-workaround

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # As of Feb/2026 notifications are no longer supported
-# natively via spotify, this is a workaround script.
-#
+# natively via spotify, this is a workaround script that
+# invokes a notification on song change.
+
 # Monitor Spotify track changes via MPRIS and send notifications with album art.
 # Requires: playerctl, libnotify (notify-send), curl
 

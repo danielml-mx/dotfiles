@@ -9,7 +9,7 @@
 # Custom text for terminal title
 # (filter '-256color')
 cTERM=$( echo $TERM | sed "s/\-256color//g")
-echo -ne "\033]0;$(pwd) - $cTERM\007"
+echo -ne "\033]0;$(pwd | sed "s|^$HOME|~|") - $cTERM\007"
 
 
 #### Preferences ####
@@ -73,7 +73,7 @@ bindkey '^[[M' kill-word
 # update terminal title after every cd
 # https://joshtronic.com/2022/02/27/how-to-run-a-command-after-changing-directories-in-zsh/
 function cd {
-	builtin cd "$@" && echo -ne "\033]0;$(pwd) - $cTERM\007"
+	builtin cd "$@" && echo -ne "\033]0;$(pwd | sed "s|^$HOME|~|") - $cTERM\007"
 }
 
 # Basic auto/tab complete
@@ -100,7 +100,7 @@ lfcd () {
         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
 	rm -f $tmp
     fi
-    echo -ne "\033]0;$(pwd) - $cTERM\007"
+    echo -ne "\033]0;$(pwd | sed "s|^$HOME|~|") - $cTERM\007"
 }
 
 # Same for yazi (currently unused)
@@ -112,7 +112,7 @@ yazicd () {
         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
 	rm -f $tmp
     fi
-    echo -ne "\033]0;$(pwd) - $cTERM\007"
+    echo -ne "\033]0;$(pwd | sed "s|^$HOME|~|") - $cTERM\007"
 }
 
 # Use fzf to open files/change into dirs

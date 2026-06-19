@@ -30,7 +30,8 @@ cmd newterm &{{
 }}
 
 cmd on-cd &{{
-    printf "\033]2;$PWD - lf\a" > /dev/tty
+    #printf "\033]2;$PWD - lf\a" > /dev/tty
+    printf "\033]2;$(pwd | sed "s|^$HOME|~|") - lf\a" > /dev/tty
 }}
 
 # Run once to initialize title change

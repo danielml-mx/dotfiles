@@ -13,45 +13,92 @@ WRONG=$( xrdb -get lockscreen.wrong )aa
 BACKGROUND=$( xrdb -get lockscreen.background )bf
 FONT=$( xrdb -get lockscreen.font | cut -d: -f1 )
 
-i3lock -t -n -e --force-clock \
--i $IMG \
---ind-pos="w/2:h/2" \
---time-pos="w/2:h/2-5" \
---date-pos="w/2:h/2+35" \
---greeter-pos="w/2:h/2" \
---insidever-color=$BACKGROUND \
---insidewrong-color=$WRONG \
---inside-color=$BACKGROUND \
---ringver-color=$VERIFIED \
---ringwrong-color=$WRONG \
---ring-color=$RINGCOLOR \
---keyhl-color=$HIGHLIGHT \
---bshl-color=$HIGHLIGHT \
---separator-color=00000000 \
---date-color=$FOREGROUND \
---time-color=$FOREGROUND \
---greeter-color=$FOREGROUND \
---time-str="%H | %M" \
---time-size=27 \
---date-str="%a, %d %b" \
---date-size=15 \
---greeter-text="" \
---greeter-size=25 \
---line-uses-inside \
---radius 75 \
---ring-width 4 \
---indicator \
---verif-text="" \
---wrong-text="" \
---noinput-text="" \
---lock-text="" \
---lockfailed-text="" \
---clock \
---date-font="$FONT" \
---time-font="$FONT" \
---color=000000ff \
---pass-media-keys --pass-screen-keys --pass-volume-keys \
-$@
-
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    swaylock -t -n -e --clock \
+    -i $IMG \
+    --inside-ver-color=$BACKGROUND \
+    --inside-wrong-color=$WRONG \
+    --inside-color=$BACKGROUND \
+    --ring-ver-color=$VERIFIED \
+    --ring-wrong-color=$WRONG \
+    --ring-color=$RINGCOLOR \
+    --key-hl-color=$HIGHLIGHT \
+    --bs-hl-color=$HIGHLIGHT \
+    --separator-color=00000000 \
+    --text-color=$FOREGROUND \
+    --timestr="%H | %M" \
+    --datestr="%a, %d %b" \
+    --text-clear="" \
+    --text-caps-lock="" \
+    --text-ver="" \
+    --text-wrong="" \
+    --line-uses-inside \
+    --indicator \
+    --clock \
+    --font="$FONT" \
+    --color=000000ff \
+    $@
+    #swaylock -t -n -e --clock \
+    #-i $IMG \
+    #--inside-ver-color=$BACKGROUND \
+    #--inside-wrong-color=$WRONG \
+    #--inside-color=$BACKGROUND \
+    #--ring-ver-color=$VERIFIED \
+    #--ring-wrong-color=$WRONG \
+    #--ring-color=$RINGCOLOR \
+    #--key-hl-color=$HIGHLIGHT \
+    #--bs-hl-color=$HIGHLIGHT \
+    #--separator-color=00000000 \
+    #--text-color=$FOREGROUND \
+    #--timestr="%H | %M" \
+    #--datestr="%a, %d %b" \
+    #--line-uses-inside \
+    #--indicator \
+    #--text-clear "" \
+    #--clock \
+    #--font="$FONT" \
+    #--color=000000ff \
+    #$@
+else
+    i3lock -t -n -e --force-clock \
+    -i $IMG \
+    --ind-pos="w/2:h/2" \
+    --time-pos="w/2:h/2-5" \
+    --date-pos="w/2:h/2+35" \
+    --greeter-pos="w/2:h/2" \
+    --insidever-color=$BACKGROUND \
+    --insidewrong-color=$WRONG \
+    --inside-color=$BACKGROUND \
+    --ringver-color=$VERIFIED \
+    --ringwrong-color=$WRONG \
+    --ring-color=$RINGCOLOR \
+    --keyhl-color=$HIGHLIGHT \
+    --bshl-color=$HIGHLIGHT \
+    --separator-color=00000000 \
+    --date-color=$FOREGROUND \
+    --time-color=$FOREGROUND \
+    --greeter-color=$FOREGROUND \
+    --time-str="%H | %M" \
+    --time-size=27 \
+    --date-str="%a, %d %b" \
+    --date-size=15 \
+    --greeter-text="" \
+    --greeter-size=25 \
+    --line-uses-inside \
+    --radius 75 \
+    --ring-width 4 \
+    --indicator \
+    --verif-text="" \
+    --wrong-text="" \
+    --noinput-text="" \
+    --lock-text="" \
+    --lockfailed-text="" \
+    --clock \
+    --date-font="$FONT" \
+    --time-font="$FONT" \
+    --color=000000ff \
+    --pass-media-keys --pass-screen-keys --pass-volume-keys \
+    $@
+fi
 #light -I
 #light -S 50

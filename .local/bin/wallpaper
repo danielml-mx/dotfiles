@@ -2,27 +2,36 @@
 
 source ~/.zprofile
 
-killall xwinwrap
 WALL=$( find $WALLS_DIR -type f | shuf -n 1 - )
 
 case $1 in
     --dynamic )
         # Assumes $WALLS_DIR points to video/video dir
-        ffmpeg -y -ss 00:00:05 -i $WALL -frames:v 1 -vf "gblur=sigma=3" $LOCK_WALLPAPER
-        echo $WALL
-        killall xwinwrap
-        xwinwrap -ov -g 1920x1080+0+0 -- mpv --fullscreen \
-                --no-stop-screensaver \
-                --vo=gpu --hwdec=vdpau \
-                --loop-file --mute=yes --no-osc --no-osd-bar -wid WID \
-            --x11-name=mpv-pause-unfocused \
-            --x11-netwm=yes \
-            $WALL &
+        if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+            
+        else
+            killall xwinwrap
+            ffmpeg -y -ss 00:00:05 -i $WALL -frames:v 1 -vf "gblur=sigma=3" $LOCK_WALLPAPER
+            echo $WALL
+            killall xwinwrap
+            xwinwrap -ov -g 1920x1080+0+0 -- mpv --fullscreen \
+                    --no-stop-screensaver \
+                    --vo=gpu --hwdec=vdpau \
+                    --loop-file --mute=yes --no-osc --no-osd-bar -wid WID \
+                --x11-name=mpv-pause-unfocused \
+                --x11-netwm=yes \
+                $WALL &
+        fi
         ;;
     * )
         # Assumes $WALLS_DIR points to image/image dir
-        hsetroot -cover $WALL
-        hsetroot -cover $WALL -blur 3 -write $LOCK_WALLPAPER
+        if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+            hsetroot -cover $WALL -blur 3 -write $LOCK_WALLPAPER
+            swaybg -i $WALL &
+        else
+            hsetroot -cover $WALL
+            hsetroot -cover $WALL -blur 3 -write $LOCK_WALLPAPER
+        fi
         ;;
 esac
 

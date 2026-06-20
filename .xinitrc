@@ -16,6 +16,9 @@ picom &
 # Notifications
 dunst &
 
+# Sync files
+syncthing --no-browser &
+
 # Set correct keyboard layout & swap Esc and Caps Lock & type faster
 setxkbmap latam
 setxkbmap -option caps:swapescape

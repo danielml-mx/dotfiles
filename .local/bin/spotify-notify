@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # As of Feb/2026 notifications are no longer supported
 # natively via spotify, this is a workaround script that
 # invokes a notification on song change.
@@ -39,7 +40,7 @@ monitor() {
 monitor &
 monitor_pid=$!
 
-spotify
+spotify $@
 
 # Kill the entire process group for the monitor job (playerctl + the read loop),
 # not just monitor_pid, so playerctl doesn't survive as an orphan after Spotify quits.

@@ -5,7 +5,7 @@
 
 if [ $WAYLAND_DISPLAY ]; then
 	wm=hyprland
-	grim -g "$(slurp -d)" "$name"
+	grim -g "$(slurp -d -b 00000000 -c ffffff)" "$name"
 	wl-copy --type image/png < "$name"
 elif [ $DISPLAY ]; then
 	wm=dwm

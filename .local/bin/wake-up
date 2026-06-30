@@ -5,7 +5,12 @@
 # I have stored in a text file (or, optionally), a file you provide),
 # and then starts playing them with mpv. The exported variables allow
 # mpv to display properly when being called from cron.
+#
+# Edit: recently Instagram changed the way they process videos, to
+# get this working with reels yt-dlp nightly needs to be installed
+# (probably a week until it merges into master though). See:
+# https://github.com/yt-dlp/yt-dlp/issues/17074
 
 export DISPLAY=:0
 export XAUTHORITY=/run/user/1000/Xauthority
-shuf "${1:-$HOME/docs/personal/links.txt}" | mpv --playlist=- --force-window=immediate --auto-window-resize=no
+shuf "${1:-$XDG_DATA_HOME/alarm-sources/links.txt}" | mpv --playlist=- --force-window=immediate --auto-window-resize=no

@@ -81,6 +81,15 @@ autoload -U compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
+# Directories - blue
+# Symlinks - cyan
+# Executables - green
+# Regular files - white
+# Named pipes - yellow
+# Sockets - magenta
+# Block devices - bold yellow
+# Character devices - bold yellow
+zstyle ':completion:*' list-colors 'di=34;01' 'ln=36' 'ex=32' 'fi=37' 'pi=33' 'so=35' 'bd=33;01' 'cd=33;01'
 _comp_options+=(globdots)		# Include hidden files.
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'	# Case-insensitive matching
 
@@ -121,8 +130,6 @@ cdopen() {
 	[ $(file --mime-type -b $fd) != 'inode/directory' ] && cd $(dirname "$fd") && xdg-open-nobg "$(basename $fd)" || cd "$fd"
 	echo -ne "\033]0;$(pwd) - $cTERM\007"
 }
-
-alias cvim='sudo vim --clean'
 
 # Bind previous functions to keys
 bindkey -s '^o' '^ucdopen\n^l'
@@ -173,7 +180,8 @@ alias hss="hugo server --noHTTPCache --disableFastRender"
 alias hnc="hugo new content"
 alias ktd='killall transmission-daemon'
 alias unrar='unrar-free'
-alias spotify='spotify-notifications-workaround & spotify'
+#alias spotify='spotify-notifications-workaround & spotify'
+alias mango="dbus-run-session mango"
 # Make programs cleaner and force them to use less cache
 alias sxiv='sxiv -p -a'
 alias wget='wget --hsts-file=/dev/null'
@@ -207,10 +215,8 @@ alias monero-wallet-cli="monero-wallet-cli --wallet-file ~/.local/share/monero-w
 #### Plugins ####
 
 # Autosuggestions 
-# remember: changed
-# ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# line 36 from color 8 to 7 
 source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+typeset -g ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=246'
 ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 zstyle ':completion:*' ignored-patterns 'nvidia*|'	# ignore certain patterns
 zstyle ':completion:*' hosts off      # do not autocomplete from hosts file
@@ -224,3 +230,6 @@ source ~/.config/zsh/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+typeset -g POWERLEVEL9K_DIR_FOREGROUND=3
+typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=11
+

@@ -53,8 +53,8 @@ export VIMINIT='source $MYVIMRC'
 
 # Other settings for programs
 #export MOZ_ENABLE_WAYLAND=1
-export MOZ_ENABLE_WAYLAND=0
-export MOZ_USE_XINPUT2=1
+#export MOZ_ENABLE_WAYLAND=0
+#export MOZ_USE_XINPUT2=1
 export GITSTATUS_CACHE_DIR=$XDG_CONFIG_HOME/zsh/gitstatus-bin
 
 # Preferent programs
@@ -66,8 +66,7 @@ export VISUAL=nvim
 
 
 # Personal variables
-#export WALLS_DIR=$HOME/downs/wallpapers/fam/DSC00624.JPG
-export WALLS_DIR=$HOME/downs/wallpapers/tlou/tlou-1920.mkv
+export WALLS_DIR=$HOME/downs/wallpapers/mty_bw.jpg
 export LOCK_WALLPAPER=/tmp/lockwall.png
 
 # Temporary sioyek fix

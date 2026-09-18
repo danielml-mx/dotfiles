@@ -2,12 +2,27 @@
 
 #https://askubuntu.com/questions/1192981/why-isnt-tilde-recognised-as-home-folder-in-this-case
 
-[ -z "$1" ] && name=~/vids/$(date +'screencapture-%m%d%y-%H%M%S.mkv') || name=$1
+[ -z "$1" ] && name=~/vids/$(date +'screencapture-%m%d%y-%H%M%S.mp4') || name=$1
 
-# TODO: ver si se puede matar un proceso específico de
-# ffmpeg
-#killall ffmpeg && dunstify -a "dwm" "Screen capturing" "Recording stopped" && exit
+if [ $WAYLAND_DISPLAY ]; then
+    notify-send -a "mango" "Screen capturing" "Starting screen recording "$name"" 
+    wf-recorder --audio --file="$name"
+    #notify-send -a "mango" "Screen capturing" "Recording stopped" 
 
-dunstify -a "dwm" "Screen capturing" "Starting screen recording "$name"" 
+elif [ $DISPLAY ]; then
+    # TODO: ver si se puede matar un proceso específico de
+    # ffmpeg
+    #killall ffmpeg && dunstify -a "dwm" "Screen capturing" "Recording stopped" && exit
+    dunstify -a "dwm" "Screen capturing" "Starting screen recording "$name"" 
+    #ffmpeg -f x11grab -r 25 -s 1920x1080 -i :0.0+0,0 -f pulse -i "alsa_input.usb-ZOOM_Corporation_H1n_000000000000-00.analog-stereo" -vcodec libx264 -crf 0 -preset ultrafast -acodec pcm_s16le $name
+    ffmpeg \
+    -f x11grab -r 60 -s 1920x1080 -i :0.0+0,0 \
+    -f pulse -i bluez_output.8C_0D_D9_E7_58_6F.1.monitor \
+    -c:v libx264 -crf 0 -preset ultrafast \
+    -c:a pcm_s16le \
+    "$name"
+fi
 
-ffmpeg -f x11grab -r 25 -s 1920x1080 -i :0.0+0,0 -f pulse -i "alsa_input.usb-ZOOM_Corporation_H1n_000000000000-00.analog-stereo" -vcodec libx264 -crf 0 -preset ultrafast -acodec pcm_s16le $name
+
+# Audio only
+ffmpeg -f pulse -i "alsa_input.usb-ZOOM_Corporation_H1n_000000000000-00.analog-stereo" -crf 0 -preset ultrafast -ac 2 output.mpg

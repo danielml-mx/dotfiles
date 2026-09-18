@@ -4,7 +4,7 @@
 [ -z "$1" ] && name="/tmp/$(date +'screenshot-%m%d%y-%H%M%S.png')" || name=$1
 
 if [ $WAYLAND_DISPLAY ]; then
-	wm=hyprland
+	wm=$XDG_CURRENT_DESKTOP
 	grim -g "$(slurp -d -b 00000000 -c ffffff)" "$name"
 	wl-copy --type image/png < "$name"
 elif [ $DISPLAY ]; then

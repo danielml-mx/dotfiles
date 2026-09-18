@@ -1,24 +1,43 @@
 #!/bin/sh
 
-layout=$( setxkbmap -query | grep layout | cut -d' ' -f6 )
+if [ $WAYLAND_DISPLAY ]; then
+    wm="$XDG_CURRENT_DESKTOP"
+    if [ "$wm" = "mango" ]; then
+        layout=$( mmsg get keyboardlayout | awk -F '"' '{print $4}' )
+        
+        [ "$layout" = "Spanish (Latin American)" ] && layout="LATAM"
+    fi
+elif [ $DISPLAY ]; then
+    layout=$( setxkbmap -query | grep layout | cut -d' ' -f6 )
 
-#[ layout -eq 'latam' ] && setxkbmap latam || setxkbmap us
-case $layout in
-	'latam')
-		setxkbmap us
-		notify-send -a dwm -r 100 Keyboard "Keyboard layout changed to US"
-		;;
-	'us')
-		setxkbmap latam
-		notify-send -a dwm -r 100 Keyboard "Keyboard layout changed to LATAM"
-		;;
-esac
-setxkbmap -option caps:swapescape
-setxkbmap -option compose:paus
-xmodmap -e "keycode 135 = Super_R"
-xmodmap -e "keycode 107 = Super_R"
-#numlockx on
-xset r rate 300 50
-xinput set-prop "Elan TrackPoint" "libinput Accel Speed" 1
+    # TODO: no hardcodear dwm
+    wm="dwm"
 
+    # lógica: si es us, alternar a latam; si es latam, alternar a us
+    case $layout in
+    	'latam')
+    		setxkbmap us
+            layout="US"
+    		;;
+    	'us')
+    		setxkbmap latam
+            layout="LATAM"
+    		;;
+    esac
+
+    # Restaurar personalizaciones de inputs
+    setxkbmap -option caps:swapescape
+    setxkbmap -option compose:paus
+    #xmodmap -e "keycode 135 = Super_R"
+    xmodmap -e "keycode 107 = Super_R"
+    #numlockx on
+    xset r rate 300 50
+    xinput set-prop "Elan TrackPoint" "libinput Accel Speed" 1
+
+else
+    echo "Error: No Wayland or X11 display detected" >&2
+	exit 1
+fi
+
+notify-send -a $wm -r 100 Keyboard "Keyboard layout changed to $(echo $layout | tr '[:lower:]' '[:upper:]')"
 

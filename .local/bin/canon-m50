@@ -1,13 +1,17 @@
 #!/bin/sh
 
 # Script to use the Canon M50 camera as a webcam with mpv.
+# Requires: mpv gphoto2 ffmpeg v4l2loopback-dkms
 
 sudo rmmod v4l2loopback # remove the module if it's already loaded
 sudo modprobe v4l2loopback exclusive_caps=1 max_buffers=2 card_label="Canon M50" # load the module with the needed parameters
 gphoto2 --stdout --set-config liveviewsize=0 --capture-movie | ffmpeg  -i - -vcodec rawvideo -af "hqdn3d" -pix_fmt yuv420p -threads 0 -f v4l2 -s:v 1920x1080 -r 25 /dev/video4 &
 
-sleep 3 && mpv av://v4l2:/dev/video4 --profile=low-latency --untimed --force-window
+sleep 3 && mpv av://v4l2:/dev/video4 --profile=low-latency --untimed --force-window --title="Canon M50 - mpv"
 
 killall gphoto2
 
 rm -r ~/.gphoto
+
+# mango
+# {"id":26,"pid":6557,"title":"video0 - mpv","appid":"mpv","monitor":"eDP-1","tags":[9],"is_focused":true,"is_fullscreen":false,"is_floating":false,"is_maximized":false,"is_global":false,"is_unglobal":false,"is_overlay":false,"is_fakefullscreen":false,"is_minimized":false,"is_urgent":false,"is_scratchpad":false,"is_namedscratchpad":false,"x":10,"y":115,"width":1900,"height":945,"scroller_proportion":0.899999976158142}

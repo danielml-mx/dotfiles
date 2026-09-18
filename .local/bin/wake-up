@@ -14,3 +14,12 @@
 export DISPLAY=:0
 export XAUTHORITY=/run/user/1000/Xauthority
 shuf "${1:-$XDG_DATA_HOME/alarm-sources/links.txt}" | mpv --playlist=- --force-window=immediate --auto-window-resize=no
+
+#sqlite3 ~/.local/share/newsboat/cache.db "
+#SELECT content
+#FROM rss_item
+#WHERE feedurl = 'https://www.verseoftheday.com/rss/es/'
+#ORDER BY pubDate DESC
+#LIMIT 1;
+#"
+

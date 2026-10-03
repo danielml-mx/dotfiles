@@ -41,6 +41,7 @@ export TEXMFCONFIG=$XDG_CONFIG_HOME/texlive/texmf-config
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 #export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
 export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/ms-office
+export PSQL_HISTORY="$XDG_STATE_HOME/psql_history"
 
 # Making vim XDGBD compliant
 # https://blog.joren.ga/configuring/vim-xdg | Edited to fit this machine
@@ -48,8 +49,8 @@ export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/ms-office
 ## ^^^ What?
 
 #export VIMINIT='set nocp | source ${XDG_CONFIG_HOME}/vim/vimrc'
-export MYVIMRC=$XDG_CONFIG_HOME/vim/vimrc
-export VIMINIT='source $MYVIMRC'
+#export MYVIMRC=$XDG_CONFIG_HOME/vim/vimrc
+#export VIMINIT='source $MYVIMRC'
 
 # Other settings for programs
 #export MOZ_ENABLE_WAYLAND=1
@@ -66,7 +67,8 @@ export VISUAL=nvim
 
 
 # Personal variables
-export WALLS_DIR=$HOME/downs/wallpapers/mty_bw.jpg
+#export WALLS_DIR=$HOME/downs/wallpapers/mty_bw.jpg
+export WALLS_DIR=$HOME/downs/wallpapers/sopranos/tony.jpg
 export LOCK_WALLPAPER=/tmp/lockwall.png
 
 # Temporary sioyek fix

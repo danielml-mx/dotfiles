@@ -9,7 +9,7 @@
 color listnormal          white      default
 color listnormal_unread   color11    default    bold
 color listfocus           black      yellow
-color listfocus_unread    color11    yellow
+color listfocus_unread    black   yellow     bold
 color info                black      white
 color article             white      default
 #color end-of-text-marker default default

@@ -1,14 +1,14 @@
 return {
     {
-        "folke/tokyonight.nvim",
+    "folke/tokyonight.nvim",
 	lazy = false,
 	priority = 1000,
 	opts = {
 	    -- do not paint over the background
 	    transparent = true,
     	    styles = {
-	        sidebars = "transparent",
-		floats = "transparent"
+	            sidebars = "transparent",
+		        floats = "dark"
             },
 
 	    -- minor personal color alterations

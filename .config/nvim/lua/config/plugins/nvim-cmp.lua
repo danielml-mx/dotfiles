@@ -1,0 +1,84 @@
+return {
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    dependencies = {
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "saadparwaiz1/cmp_luasnip",
+        {
+            "L3MON4D3/LuaSnip",
+            dependencies = { "rafamadriz/friendly-snippets" },
+        },
+    },
+    config = function()
+        local cmp = require("cmp")
+        local luasnip = require("luasnip")
+
+        require("luasnip.loaders.from_vscode").lazy_load()
+
+        cmp.setup({
+
+
+            mapping = cmp.mapping.preset.insert({
+
+                -- Open autocomplete manually
+                ["<C-Space>"] = cmp.mapping.complete(),
+
+                -- Close menu
+                ["<C-e>"] = cmp.mapping.abort(),
+                
+                -- Select snippet 
+                ["<CR>"] = cmp.mapping.confirm({ select = false }),
+
+                -- Use Tab to scroll through the options
+                ["<Tab>"] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_next_item()
+                    elseif luasnip.expand_or_locally_jumpable() then
+                        luasnip.expand_or_jump()
+                    else
+                        fallback()
+                    end
+                end, { "i", "s" }),
+
+                ["<S-Tab>"] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_prev_item()
+                    elseif luasnip.locally_jumpable(-1) then
+                        luasnip.jump(-1)
+                    else
+                        fallback()
+                    end
+                end, { "i", "s" }),
+            }),
+
+            snippet = {
+                expand = function(args)
+                    require("luasnip").lsp_expand(args.body)
+                end,
+            },
+
+            sources = cmp.config.sources({
+                { name = "nvim_lsp" },
+                { name = "luasnip" },
+            }, {
+                { name = "buffer" },
+            }),
+
+            window = {
+                documentation = {
+                    -- top-left, top, top-right, right, bottom-right, bottom, bottom-left, left
+                    border = { "", "", "", " ", " ", "", " ", " " },
+                    winhighlight = "Normal:NormalFloat,FloatBorder:NormalFloat",
+                },
+            },
+        })
+
+        -- Never display automatically for prose documents
+        -- cmp.setup.filetype({ "markdown", "text", "tex", "rmd", "" }, {
+        cmp.setup.filetype({ "text", "" }, {
+            completion = { autocomplete = false },
+        })
+
+    end,
+}

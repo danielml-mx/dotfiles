@@ -21,3 +21,4 @@ vim.opt.tabstop		= 4         -- Default tab is 4 spaces, may be changed per file
 vim.opt.shiftwidth	= 4         -- Default tab is 4 spaces, may be changed per filetype
 vim.opt.expandtab	= true      -- Default tab is 4 spaces, may be changed per filetype
 vim.opt.undofile    = true      -- Keep undo history accross sessions
+-- vim.g.cssColorFileTypes = "css,scss,sass,html,hyprlang"
